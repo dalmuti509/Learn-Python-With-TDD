@@ -1,0 +1,277 @@
+<div class="chapter-content">
+    <h2>Data Processing</h2>
+    
+    <p>Learn to process and analyze data using Python libraries like Pandas, NumPy, and other data science tools. This chapter covers data manipulation, analysis, and visualization using Test-Driven Development.</p>
+
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Process data with Pandas DataFrames</li>
+        <li>Perform numerical computations with NumPy</li>
+        <li>Clean and transform messy data</li>
+        <li>Analyze data patterns and statistics</li>
+        <li>Create data visualizations</li>
+        <li>Test data processing pipelines</li>
+    </ul>
+
+    <h3>What We'll Build</h3>
+    <p>A data processing pipeline that cleans, analyzes, and visualizes sales data from CSV files.</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Data Pipeline</span>
+        </div>
+        <div class="code-block-content">
+# Data processing workflow
+processor = DataProcessor()
+
+# Load and clean data
+df = processor.load_csv("sales_data.csv")
+clean_df = processor.clean_data(df)
+
+# Analyze data
+monthly_sales = processor.group_by_month(clean_df)
+top_products = processor.find_top_products(clean_df, n=10)
+sales_trends = processor.calculate_trends(clean_df)
+
+# Generate reports
+processor.create_summary_report(clean_df)
+processor.export_to_excel(monthly_sales, "monthly_report.xlsx")
+        </div>
+    </div>
+
+    <h3>TDD Walkthrough: Data Cleaning Pipeline</h3>
+    <p>Let's build a data processing pipeline using Test-Driven Development:</p>
+
+    <h4>🔴 Red Phase: Failing Data Test</h4>
+    <p>Start with a test for loading CSV data:</p>
+    
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>data_processor_test.py (existing test)</span>
+        </div>
+        <div class="code-block-content">
+def test_load_csv(self):
+    """Should load data from CSV file."""
+    processor = DataProcessor()
+    # Assume test.csv exists with sample data
+    df = processor.load_csv("test_data.csv")
+    assert len(df) > 0
+    assert "name" in df.columns
+    assert "age" in df.columns
+        </div>
+    </div>
+
+    <p>Run the test to see it fail:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ cd source/data-processing
+$ pytest -v -k test_load_csv
+
+FAILED: AttributeError: 'NoneType' object has no attribute 'columns'
+        </div>
+    </div>
+
+    <h4>🟢 Green Phase: Minimal Implementation</h4>
+    <p>Implement basic CSV loading:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>data_processor.py - First Implementation</span>
+        </div>
+        <div class="code-block-content">
+import pandas as pd
+
+def load_csv(self, filename):
+    """Load data from CSV file."""
+    return pd.read_csv(filename)
+        </div>
+    </div>
+
+    <h4>🔵 Refactor Phase: Add Error Handling</h4>
+    <p>Add robust error handling and validation:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Enhanced with validation</span>
+        </div>
+        <div class="code-block-content">
+import pandas as pd
+import os
+
+def load_csv(self, filename):
+    """Load data from CSV file."""
+    if not os.path.exists(filename):
+        raise FileNotFoundError(f"File {filename} not found")
+    
+    try:
+        df = pd.read_csv(filename)
+        if df.empty:
+            raise ValueError("CSV file is empty")
+        return df
+    except pd.errors.EmptyDataError:
+        raise ValueError("CSV file contains no data")
+    except Exception as e:
+        raise ValueError(f"Error reading CSV: {str(e)}")
+        </div>
+    </div>
+
+    <h3>TDD for Data Cleaning</h3>
+    <p>Implement data cleaning operations step by step:</p>
+
+    <h4>🔴 Red: Test Data Cleaning</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test removing duplicates and null values</span>
+        </div>
+        <div class="code-block-content">
+def test_clean_data(self):
+    """Should clean data by removing duplicates and nulls."""
+    processor = DataProcessor()
+    # Create test DataFrame with issues
+    df = pd.DataFrame({
+        'name': ['Alice', 'Bob', 'Alice', None, 'Charlie'],
+        'age': [25, 30, 25, 35, None],
+        'city': ['NYC', 'LA', 'NYC', 'Chicago', 'Boston']
+    })
+    
+    cleaned_df = processor.clean_data(df)
+    
+    # Should remove duplicate Alice row and null values
+    assert len(cleaned_df) == 3  # Alice, Bob, Charlie (no nulls)
+    assert cleaned_df['name'].isna().sum() == 0
+    assert cleaned_df['age'].isna().sum() == 0
+        </div>
+    </div>
+
+    <h4>🟢 Green: Basic Cleaning</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Simple data cleaning</span>
+        </div>
+        <div class="code-block-content">
+def clean_data(self, df):
+    """Clean and preprocess data."""
+    # Remove duplicates
+    df_clean = df.drop_duplicates()
+    
+    # Remove rows with any null values
+    df_clean = df_clean.dropna()
+    
+    return df_clean
+        </div>
+    </div>
+
+    <h4>🔵 Refactor: Configurable Cleaning</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>More flexible cleaning options</span>
+        </div>
+        <div class="code-block-content">
+def clean_data(self, df, remove_duplicates=True, handle_nulls='drop'):
+    """Clean and preprocess data."""
+    df_clean = df.copy()
+    
+    if remove_duplicates:
+        df_clean = df_clean.drop_duplicates()
+    
+    if handle_nulls == 'drop':
+        df_clean = df_clean.dropna()
+    elif handle_nulls == 'fill':
+        # Fill numeric columns with mean, categorical with mode
+        for col in df_clean.columns:
+            if df_clean[col].dtype in ['int64', 'float64']:
+                df_clean[col].fillna(df_clean[col].mean(), inplace=True)
+            else:
+                df_clean[col].fillna(df_clean[col].mode()[0], inplace=True)
+    
+    return df_clean
+        </div>
+    </div>
+
+    <h3>TDD for Data Analysis</h3>
+    <p>Add statistical analysis following TDD:</p>
+
+    <h4>🔴 Red: Statistics Test</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test statistical calculations</span>
+        </div>
+        <div class="code-block-content">
+def test_calculate_statistics(self):
+    """Should calculate basic statistics for a column."""
+    processor = DataProcessor()
+    df = pd.DataFrame({'scores': [85, 90, 78, 92, 88, 95, 82]})
+    
+    stats = processor.calculate_statistics(df, 'scores')
+    
+    assert 'mean' in stats
+    assert 'median' in stats
+    assert 'std' in stats
+    assert stats['mean'] == pytest.approx(87.14, rel=1e-2)
+        </div>
+    </div>
+
+    <h4>🟢 Green: Basic Statistics</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Statistical calculations</span>
+        </div>
+        <div class="code-block-content">
+def calculate_statistics(self, df, column):
+    """Calculate basic statistics for a column."""
+    if column not in df.columns:
+        raise ValueError(f"Column '{column}' not found")
+    
+    series = df[column]
+    if not pd.api.types.is_numeric_dtype(series):
+        raise ValueError(f"Column '{column}' is not numeric")
+    
+    return {
+        'mean': series.mean(),
+        'median': series.median(),
+        'std': series.std(),
+        'min': series.min(),
+        'max': series.max(),
+        'count': series.count()
+    }
+        </div>
+    </div>
+
+    <h3>Your Data Processing TDD Journey</h3>
+    <p>Complete the data pipeline using TDD principles:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>TDD Workflow for Data Processing</span>
+        </div>
+        <div class="code-block-content">
+# 1. Create test data files for consistent testing
+# test_data.csv, messy_data.csv, etc.
+
+# 2. Run tests to see what needs implementation
+pytest -v
+
+# 3. Implement data transformations one by one
+pytest -v -k test_group_by_column
+
+# 4. Add data validation and quality checks
+def validate_data_quality(self, df):
+    issues = []
+    if df.isnull().sum().sum() > 0:
+        issues.append("Contains null values")
+    if df.duplicated().sum() > 0:
+        issues.append("Contains duplicates")
+    return issues
+
+# 5. Test with edge cases (empty data, invalid formats)
+pytest -v -k test_handle_missing_values
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Pro Tip:</strong> Always validate your data processing logic with small, known datasets before applying it to large production data. TDD helps catch data processing bugs early and ensures your pipeline handles edge cases correctly!
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<h2>Working with Lists and Arrays</h2>
+<p>Let's explore Python's list operations through TDD.</p>
+
+<h3>Step 1: Test List Filtering (Red Phase)</h3>
+<p>Start with a function that filters positive numbers from a list:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>list_operations_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_filter_positive_numbers():
+    numbers = [-1, 2, -3, 4, -5]
+    result = filter_positive(numbers)
+    assert result == [2, 4]</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest list_operations_test.py -v</code></p>
+<p><em>Expected result: The test fails because <code>filter_positive()</code> doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement List Filtering (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>list_operations.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def filter_positive(numbers):
+    return [x for x in numbers if x > 0]</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test List Summation (Red Phase)</h3>
+<p>Now add a test for summing a list of numbers:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>list_operations_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_filter_positive_numbers():
+    numbers = [-1, 2, -3, 4, -5]
+    result = filter_positive(numbers)
+    assert result == [2, 4]
+
+def test_sum_list():
+    numbers = [1, 2, 3, 4, 5]
+    result = sum_list(numbers)
+    assert result == 15</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest list_operations_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>sum_list</code> doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement List Summation (Green Phase)</h3>
+<p>Add the implementation for summing a list:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>list_operations.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def filter_positive(numbers):
+    return [x for x in numbers if x > 0]
+
+def sum_list(numbers):
+    return sum(numbers)</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>List filtering:</strong> Using list comprehensions to filter elements</li>
+    <li><strong>List operations:</strong> Built-in functions like <code>sum()</code></li>
+    <li><strong>List comprehensions:</strong> Python's powerful iteration syntax</li>
+    <li><strong>TDD with lists:</strong> Building list operations incrementally</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for finding the maximum value in a list and reversing a list. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

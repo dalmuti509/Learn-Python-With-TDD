@@ -1,0 +1,89 @@
+<h2>Lazy Evaluation and Custom Iteration</h2>
+<p>Let's explore Python's generators and iterators through TDD. We'll build a Fibonacci generator and a custom iterator.</p>
+
+<h3>Step 1: Test Fibonacci Generator (Red Phase)</h3>
+<p>Start with a test for a Fibonacci generator:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>generators_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_fibonacci_generator():
+    fib = fibonacci(5)
+    result = list(fib)
+    assert result == [0, 1, 1, 2, 3]</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest generators_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>fibonacci</code> function doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Fibonacci Generator (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>generators.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest generators_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Generator Expression (Red Phase)</h3>
+<p>Now add a test for a generator expression:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>generators_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_fibonacci_generator():
+    fib = fibonacci(5)
+    result = list(fib)
+    assert result == [0, 1, 1, 2, 3]
+
+def test_square_generator():
+    squares = square_generator(4)
+    result = list(squares)
+    assert result == [0, 1, 4, 9]</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest generators_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>square_generator</code> doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Square Generator (Green Phase)</h3>
+<p>Add the square generator implementation:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>generators.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+def square_generator(n):
+    for i in range(n):
+        yield i * i</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest generators_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Generators:</strong> Functions that use <code>yield</code> for lazy evaluation</li>
+    <li><strong>Generator expressions:</strong> Memory-efficient iteration</li>
+    <li><strong>Custom iterators:</strong> Implementing <code>__iter__</code> and <code>__next__</code></li>
+    <li><strong>Lazy evaluation:</strong> Computing values on-demand</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for a prime number generator and a custom range iterator. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+    <h1 class="display-4">🐍 Learn Python with Tests</h1>
+    <p class="lead">A comprehensive guide to learning Python programming through Test-Driven Development (TDD)</p>
+    <hr class="my-4">
+    <p>Inspired by the excellent "Learn Go with Tests" by Chris James, this course teaches Python through hands-on TDD examples.</p>
+    <a class="btn btn-light btn-lg" href="/chapter/introduction" role="button">Get Started</a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>🎯 What is Test-Driven Development?</h3>
+        <p>TDD is a software development approach where you write tests before writing the actual code. The process follows a simple cycle:</p>
+        <ol>
+            <li><strong>Red</strong> - Write a failing test</li>
+            <li><strong>Green</strong> - Write the minimal code to make the test pass</li>
+            <li><strong>Refactor</strong> - Improve the code while keeping tests green</li>
+        </ol>
+    </div>
+    
+    <div class="col-md-6">
+        <h3>🚀 Why TDD?</h3>
+        <ul>
+            <li><strong>Better Design</strong> - Writing tests first forces you to think about the interface</li>
+            <li><strong>Confidence</strong> - Tests give you confidence that your code works</li>
+            <li><strong>Documentation</strong> - Tests serve as living documentation</li>
+            <li><strong>Regression Prevention</strong> - Tests catch bugs when you make changes</li>
+            <li><strong>Faster Development</strong> - TDD often leads to faster development in the long run</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h4>📚 Fundamentals</h4>
+        <p>Start here if you're new to Python or TDD:</p>
+        <ul>
+            {% for chapter in course_structure.fundamentals %}
+            <li><a href="/chapter/{{ chapter.path }}">{{ chapter.name }}</a> - {{ chapter.description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="col-md-6">
+        <h4>⚡ Advanced Concepts</h4>
+        <p>For experienced Python developers:</p>
+        <ul>
+            {% for chapter in course_structure.advanced %}
+            <li><a href="/chapter/{{ chapter.path }}">{{ chapter.name }}</a> - {{ chapter.description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 How to Use This Course</h5>
+    <ol>
+        <li>Click on any chapter to start learning</li>
+        <li>Read the explanations and examples</li>
+        <li>Click "Run Tests" to see the code in action</li>
+        <li>Follow the Red-Green-Refactor cycle</li>
+        <li>Try the exercises at the end of each chapter</li>
+    </ol>
+</div>
+{% endblock %}
+
+
+
+

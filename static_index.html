@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Python with Tests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .chapter-content {
+            padding: 20px;
+        }
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .test-output {
+            background-color: #1a202c;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .test-success {
+            color: #68d391;
+        }
+        .test-failure {
+            color: #fc8181;
+        }
+        .chapter-nav {
+            margin-bottom: 20px;
+        }
+        .run-tests-btn {
+            margin: 10px 0;
+        }
+        .chapter-link {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .chapter-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Enhanced Code Block Styling */
+        .code-block-container {
+            position: relative;
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .code-block-header {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-block-content {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 16px;
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .copy-btn {
+            background: #4a5568;
+            color: #e2e8f0;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: #718096;
+        }
+        
+        .copy-btn.copied {
+            background: #38a169;
+        }
+        
+        pre {
+            margin: 0;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+        
+        code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <h3><a href="#">🐍 Learn Python with Tests</a></h3>
+                <hr>
+                
+                <h5>📚 Fundamentals</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="#introduction" class="chapter-link">Introduction</a>
+                        <small class="text-muted d-block">TDD basics and setup</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#hello-world" class="chapter-link">Hello, world</a>
+                        <small class="text-muted d-block">Your first Python program with TDD</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#integers" class="chapter-link">Integers</a>
+                        <small class="text-muted d-block">Working with numbers and basic math</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#iteration" class="chapter-link">Iteration</a>
+                        <small class="text-muted d-block">Loops and iteration in Python</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#arrays" class="chapter-link">Arrays</a>
+                        <small class="text-muted d-block">Working with lists and arrays</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#structs" class="chapter-link">Classes</a>
+                        <small class="text-muted d-block">Classes and objects in Python</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#pointers" class="chapter-link">Exceptions</a>
+                        <small class="text-muted d-block">References and exception handling</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#maps" class="chapter-link">Dictionaries</a>
+                        <small class="text-muted d-block">Dictionaries in Python</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#dependency-injection" class="chapter-link">Dependency Injection</a>
+                        <small class="text-muted d-block">Dependency injection patterns</small>
+                    </li>
+                </ul>
+                
+                <h5>⚡ Advanced Concepts</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="#functions-decorators" class="chapter-link">Functions & Decorators</a>
+                        <small class="text-muted d-block">Function decorators and closures</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#generators-iterators" class="chapter-link">Generators & Iterators</a>
+                        <small class="text-muted d-block">Lazy evaluation and custom iteration</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#context-managers" class="chapter-link">Context Managers</a>
+                        <small class="text-muted d-block">Resource management with `with` statements</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#property-decorators" class="chapter-link">Property Decorators</a>
+                        <small class="text-muted d-block">`@property`, `@setter`, `@deleter`</small>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#magic-methods" class="chapter-link">Magic Methods</a>
+                        <small class="text-muted d-block">Dunder methods and object behavior</small>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 chapter-content">
+                <div id="main-content">
+                    <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+                        <h1 class="display-4">🐍 Learn Python with Tests</h1>
+                        <p class="lead">A comprehensive guide to learning Python programming through Test-Driven Development (TDD)</p>
+                        <hr class="my-4">
+                        <p>Inspired by the excellent "Learn Go with Tests" by Chris James, this course teaches Python through hands-on TDD examples.</p>
+                        <button class="btn btn-light btn-lg" onclick="showChapter('introduction')" role="button">Get Started</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>🎯 What is Test-Driven Development?</h3>
+                            <p>TDD is a software development approach where you write tests before writing the actual code. The process follows a simple cycle:</p>
+                            <ol>
+                                <li><strong>Red</strong> - Write a failing test</li>
+                                <li><strong>Green</strong> - Write the minimal code to make the test pass</li>
+                                <li><strong>Refactor</strong> - Improve the code while keeping tests green</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h3>🚀 Why TDD?</h3>
+                            <ul>
+                                <li><strong>Better Design</strong> - Writing tests first forces you to think about the interface</li>
+                                <li><strong>Confidence</strong> - Tests give you confidence that your code works</li>
+                                <li><strong>Documentation</strong> - Tests serve as living documentation</li>
+                                <li><strong>Regression Prevention</strong> - Tests catch bugs when you make changes</li>
+                                <li><strong>Faster Development</strong> - TDD often leads to faster development in the long run</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-4">
+                        <h5>💡 How to Use This Course</h5>
+                        <ol>
+                            <li>Click on any chapter in the sidebar to start learning</li>
+                            <li>Read the explanations and examples</li>
+                            <li>Follow the Red-Green-Refactor cycle</li>
+                            <li>Try the exercises at the end of each chapter</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div id="chapter-content" class="hidden">
+                    <div class="chapter-nav">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#" onclick="showMain()">Home</a></li>
+                                <li class="breadcrumb-item active" id="current-chapter">Chapter</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 id="chapter-title">Chapter Title</h1>
+                        <div>
+                            <button class="btn btn-outline-secondary" onclick="toggleCode()">Toggle Code</button>
+                        </div>
+                    </div>
+
+                    <div id="chapter-text"></div>
+
+                    <div id="code-files" class="mt-4 hidden">
+                        <h4>Code Files</h4>
+                        <div id="file-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        // Chapter content data
+        const chapters = {
+            'introduction': {
+                title: 'Introduction',
+                content: `
+                    <h2>Welcome to Learn Python with Tests!</h2>
+                    <p>This course teaches Python programming through Test-Driven Development (TDD). You'll learn Python by writing tests first, then implementing the code to make those tests pass.</p>
+                    
+                    <h3>What You'll Learn</h3>
+                    <ul>
+                        <li>Python fundamentals through TDD</li>
+                        <li>Advanced Python concepts</li>
+                        <li>Best practices for writing maintainable code</li>
+                        <li>How to think in terms of tests and interfaces</li>
+                    </ul>
+                    
+                    <h3>Prerequisites</h3>
+                    <p>This course assumes you have basic programming knowledge, but no prior Python experience is required.</p>
+                    
+                    <h3>Getting Started</h3>
+                    <p>Ready to begin? Click on "Hello, world" in the sidebar to start your first Python program with TDD!</p>
+                `
+            },
+            'hello-world': {
+                title: 'Hello, world',
+                content: `
+                    <h2>Your First Python Program with TDD</h2>
+                    <p>Let's start with the traditional "Hello, world" program, but we'll write the test first!</p>
+                    
+                    <h3>Step 1: Write Your First Test (Red Phase)</h3>
+                    <p>Start by writing a test that describes what you want your function to do. This test will fail initially because the function doesn't exist yet.</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>hello_world_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_hello_returns_hello_world():
+    result = hello()
+    assert result == "Hello, world"</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest hello_world_test.py -v</code></p>
+                    <p><em>Expected result: The test fails because the <code>hello()</code> function doesn't exist yet.</em></p>
+                    
+                    <h3>Step 2: Write Minimal Implementation (Green Phase)</h3>
+                    <p>Now write the minimal code to make the test pass. Don't over-engineer it!</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>hello_world.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def hello():
+    return "Hello, world"</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest hello_world_test.py -v</code></p>
+                    <p><em>Expected result: The test now passes! 🎉</em></p>
+                    
+                    <h3>Step 3: Refactor (Optional)</h3>
+                    <p>Since this is a simple function, there's not much to refactor. But in more complex code, this is where you'd improve the code while keeping the tests green.</p>
+                    
+                    <h3>What We Learned</h3>
+                    <ul>
+                        <li><strong>Red-Green-Refactor cycle:</strong> Write failing test → Make it pass → Improve code</li>
+                        <li><strong>Test-first approach:</strong> Think about what you want before how to implement it</li>
+                        <li><strong>Minimal implementation:</strong> Write just enough code to make the test pass</li>
+                        <li><strong>Confidence:</strong> Tests give you confidence that your code works</li>
+                    </ul>
+                `
+            },
+            'integers': {
+                title: 'Integers',
+                content: `
+                    <h2>Working with Numbers and Basic Math</h2>
+                    <p>Let's explore Python's integer operations through TDD.</p>
+                    
+                    <h3>Step 1: Test Addition (Red Phase)</h3>
+                    <p>Start with the simplest operation - addition. Write a test for what you want:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>calculator_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_add():
+    calc = Calculator()
+    result = calc.add(2, 3)
+    assert result == 5</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest calculator_test.py -v</code></p>
+                    <p><em>Expected result: The test fails because the <code>Calculator</code> class doesn't exist yet.</em></p>
+                    
+                    <h3>Step 2: Implement Addition (Green Phase)</h3>
+                    <p>Write the minimal code to make the test pass:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>calculator.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">class Calculator:
+    def add(self, a, b):
+        return a + b</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
+                    <p><em>Expected result: The test now passes! 🎉</em></p>
+                    
+                    <h3>Step 3: Test Subtraction (Red Phase)</h3>
+                    <p>Now add a test for subtraction:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>calculator_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_add():
+    calc = Calculator()
+    result = calc.add(2, 3)
+    assert result == 5
+
+def test_subtract():
+    calc = Calculator()
+    result = calc.subtract(5, 3)
+    assert result == 2</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest calculator_test.py -v</code></p>
+                    <p><em>Expected result: The first test passes, but the second fails because <code>subtract</code> doesn't exist yet.</em></p>
+                    
+                    <h3>Step 4: Implement Subtraction (Green Phase)</h3>
+                    <p>Add the minimal implementation for subtraction:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>calculator.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">class Calculator:
+    def add(self, a, b):
+        return a + b
+    
+    def subtract(self, a, b):
+        return a - b</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
+                    <p><em>Expected result: Both tests now pass! 🎉</em></p>
+                    
+                    <h3>Step 5: Continue the Cycle</h3>
+                    <p>You would continue this pattern for multiplication, division, and any other features. Each time:</p>
+                    <ol>
+                        <li><strong>Red:</strong> Write a failing test for the next feature</li>
+                        <li><strong>Green:</strong> Write minimal code to make it pass</li>
+                        <li><strong>Refactor:</strong> Improve the code while keeping tests green</li>
+                    </ol>
+                    
+                    <h3>Key TDD Principles</h3>
+                    <ul>
+                        <li><strong>One test at a time:</strong> Focus on one small piece of functionality</li>
+                        <li><strong>Minimal implementation:</strong> Write just enough code to pass the test</li>
+                        <li><strong>Incremental progress:</strong> Build features one by one</li>
+                        <li><strong>Confidence:</strong> Each test gives you confidence in your code</li>
+                    </ul>
+                `
+            },
+            'iteration': {
+                title: 'Iteration',
+                content: `
+                    <h2>Loops and Iteration in Python</h2>
+                    <p>Let's explore Python's iteration capabilities through TDD.</p>
+                    
+                    <h3>Step 1: Test Basic Iteration (Red Phase)</h3>
+                    <p>Start with a simple function that returns a list of numbers:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>iteration_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_count_to_three():
+    result = count_to_three()
+    assert result == [1, 2, 3]</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest iteration_test.py -v</code></p>
+                    <p><em>Expected result: The test fails because <code>count_to_three()</code> doesn't exist yet.</em></p>
+                    
+                    <h3>Step 2: Implement Basic Iteration (Green Phase)</h3>
+                    <p>Write the minimal code to make the test pass:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>iteration.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def count_to_three():
+    return [1, 2, 3]</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
+                    <p><em>Expected result: The test now passes! 🎉</em></p>
+                    
+                    <h3>Step 3: Test List Comprehension (Red Phase)</h3>
+                    <p>Now add a test for a more complex iteration using list comprehension:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>iteration_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_count_to_three():
+    result = count_to_three()
+    assert result == [1, 2, 3]
+
+def test_count_even_numbers():
+    result = count_even_numbers(5)
+    assert result == [2, 4]</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest iteration_test.py -v</code></p>
+                    <p><em>Expected result: The first test passes, but the second fails because <code>count_even_numbers</code> doesn't exist yet.</em></p>
+                    
+                    <h3>Step 4: Implement List Comprehension (Green Phase)</h3>
+                    <p>Add the implementation using list comprehension:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>iteration.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def count_to_three():
+    return [1, 2, 3]
+
+def count_even_numbers(max_num):
+    return [x for x in range(1, max_num + 1) if x % 2 == 0]</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
+                    <p><em>Expected result: Both tests now pass! 🎉</em></p>
+                    
+                    <h3>What We Learned</h3>
+                    <ul>
+                        <li><strong>Basic iteration:</strong> Creating lists with simple loops</li>
+                        <li><strong>List comprehensions:</strong> Python's elegant way to create lists</li>
+                        <li><strong>Conditional iteration:</strong> Filtering elements during iteration</li>
+                        <li><strong>TDD with iteration:</strong> Building iteration logic step by step</li>
+                    </ul>
+                `
+            },
+            'arrays': {
+                title: 'Arrays',
+                content: `
+                    <h2>Working with Lists and Arrays</h2>
+                    <p>Let's explore Python's list operations through TDD.</p>
+                    
+                    <h3>Step 1: Test List Filtering (Red Phase)</h3>
+                    <p>Start with a function that filters positive numbers from a list:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>list_operations_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_filter_positive_numbers():
+    numbers = [-1, 2, -3, 4, -5]
+    result = filter_positive(numbers)
+    assert result == [2, 4]</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest list_operations_test.py -v</code></p>
+                    <p><em>Expected result: The test fails because <code>filter_positive()</code> doesn't exist yet.</em></p>
+                    
+                    <h3>Step 2: Implement List Filtering (Green Phase)</h3>
+                    <p>Write the minimal code to make the test pass:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>list_operations.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def filter_positive(numbers):
+    return [x for x in numbers if x > 0]</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
+                    <p><em>Expected result: The test now passes! 🎉</em></p>
+                    
+                    <h3>Step 3: Test List Summation (Red Phase)</h3>
+                    <p>Now add a test for summing a list of numbers:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>list_operations_test.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def test_filter_positive_numbers():
+    numbers = [-1, 2, -3, 4, -5]
+    result = filter_positive(numbers)
+    assert result == [2, 4]
+
+def test_sum_list():
+    numbers = [1, 2, 3, 4, 5]
+    result = sum_list(numbers)
+    assert result == 15</div>
+                    </div>
+                    <p><strong>Run the test:</strong> <code>pytest list_operations_test.py -v</code></p>
+                    <p><em>Expected result: The first test passes, but the second fails because <code>sum_list</code> doesn't exist yet.</em></p>
+                    
+                    <h3>Step 4: Implement List Summation (Green Phase)</h3>
+                    <p>Add the implementation for summing a list:</p>
+                    <div class="code-block-container">
+                        <div class="code-block-header">
+                            <span>list_operations.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">def filter_positive(numbers):
+    return [x for x in numbers if x > 0]
+
+def sum_list(numbers):
+    return sum(numbers)</div>
+                    </div>
+                    <p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
+                    <p><em>Expected result: Both tests now pass! 🎉</em></p>
+                    
+                    <h3>What We Learned</h3>
+                    <ul>
+                        <li><strong>List filtering:</strong> Using list comprehensions to filter elements</li>
+                        <li><strong>List operations:</strong> Built-in functions like <code>sum()</code></li>
+                        <li><strong>List comprehensions:</strong> Python's powerful iteration syntax</li>
+                        <li><strong>TDD with lists:</strong> Building list operations incrementally</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showChapter(chapterId) {
+            const mainContent = document.getElementById('main-content');
+            const chapterContent = document.getElementById('chapter-content');
+            const chapterTitle = document.getElementById('chapter-title');
+            const chapterText = document.getElementById('chapter-text');
+            const currentChapter = document.getElementById('current-chapter');
+            
+            if (chapters[chapterId]) {
+                mainContent.style.display = 'none';
+                chapterContent.style.display = 'block';
+                
+                chapterTitle.textContent = chapters[chapterId].title;
+                chapterText.innerHTML = chapters[chapterId].content;
+                currentChapter.textContent = chapters[chapterId].title;
+                
+                // Process any additional code blocks that might need enhancement
+                setTimeout(() => {
+                    processCodeBlocks();
+                }, 100);
+            }
+        }
+
+        function showMain() {
+            const mainContent = document.getElementById('main-content');
+            const chapterContent = document.getElementById('chapter-content');
+            
+            mainContent.style.display = 'block';
+            chapterContent.style.display = 'none';
+        }
+
+        function toggleCode() {
+            const codeFiles = document.getElementById('code-files');
+            if (codeFiles.style.display === 'none') {
+                codeFiles.style.display = 'block';
+                loadCodeFiles();
+            } else {
+                codeFiles.style.display = 'none';
+            }
+        }
+
+        function loadCodeFiles() {
+            const fileList = document.getElementById('file-list');
+            const currentChapter = document.getElementById('current-chapter').textContent;
+            
+            // Define code files for each chapter
+            const chapterFiles = {
+                'Introduction': [
+                    { name: 'introduction.md', content: `# Introduction to TDD
+
+## What is Test-Driven Development?
+
+Test-Driven Development (TDD) is a software development approach where you write tests before writing the actual code.
+
+## The TDD Cycle
+
+1. **Red** - Write a failing test
+2. **Green** - Write minimal code to pass
+3. **Refactor** - Improve the code
+
+## Benefits
+
+- Better design
+- Confidence in your code
+- Living documentation
+- Regression prevention` }
+                ],
+                'Hello, world': [
+                    { name: 'hello_world_test.py', content: `def test_hello_returns_hello_world():
+    result = hello()
+    assert result == "Hello, world"` },
+                    { name: 'hello_world.py', content: `def hello():
+    return "Hello, world"` }
+                ],
+                'Integers': [
+                    { name: 'calculator_test.py', content: `def test_add():
+    calc = Calculator()
+    result = calc.add(2, 3)
+    assert result == 5
+
+def test_subtract():
+    calc = Calculator()
+    result = calc.subtract(5, 3)
+    assert result == 2` },
+                    { name: 'calculator.py', content: `class Calculator:
+    def add(self, a, b):
+        return a + b
+    
+    def subtract(self, a, b):
+        return a - b` }
+                ],
+                'Iteration': [
+                    { name: 'iteration_test.py', content: `def test_count_to_three():
+    result = count_to_three()
+    assert result == [1, 2, 3]
+
+def test_count_even_numbers():
+    result = count_even_numbers(5)
+    assert result == [2, 4]` },
+                    { name: 'iteration.py', content: `def count_to_three():
+    return [1, 2, 3]
+
+def count_even_numbers(max_num):
+    return [x for x in range(1, max_num + 1) if x % 2 == 0]` }
+                ],
+                'Arrays': [
+                    { name: 'list_operations_test.py', content: `def test_filter_positive_numbers():
+    numbers = [-1, 2, -3, 4, -5]
+    result = filter_positive(numbers)
+    assert result == [2, 4]
+
+def test_sum_list():
+    numbers = [1, 2, 3, 4, 5]
+    result = sum_list(numbers)
+    assert result == 15` },
+                    { name: 'list_operations.py', content: `def filter_positive(numbers):
+    return [x for x in numbers if x > 0]
+
+def sum_list(numbers):
+    return sum(numbers)` }
+                ],
+                'Classes': [
+                    { name: 'account_test.py', content: `def test_account_creation():
+    account = Account("John", 1000)
+    assert account.balance == 1000
+    assert account.owner == "John"
+
+def test_deposit():
+    account = Account("John", 1000)
+    account.deposit(500)
+    assert account.balance == 1500` },
+                    { name: 'account.py', content: `class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+    
+    def deposit(self, amount):
+        self.balance += amount` }
+                ],
+                'Exceptions': [
+                    { name: 'file_processor_test.py', content: `def test_read_existing_file():
+    result = read_file("test.txt")
+    assert result == "Hello, World!"
+
+def test_read_nonexistent_file():
+    result = read_file("nonexistent.txt")
+    assert result is None` },
+                    { name: 'file_processor.py', content: `def read_file(filename):
+    try:
+        with open(filename, 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        return None` }
+                ],
+                'Dictionaries': [
+                    { name: 'student_manager_test.py', content: `def test_add_student():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    assert manager.get_grade("Alice") == 85
+
+def test_get_nonexistent_student():
+    manager = StudentManager()
+    result = manager.get_grade("Bob")
+    assert result is None` },
+                    { name: 'student_manager.py', content: `class StudentManager:
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, grade):
+        self.students[name] = grade
+    
+    def get_grade(self, name):
+        return self.students.get(name)` }
+                ],
+                'Dependency Injection': [
+                    { name: 'notification_test.py', content: `def test_email_notification():
+    notifier = EmailNotifier()
+    service = NotificationService(notifier)
+    result = service.send("Hello", "user@example.com")
+    assert result == "Email sent: Hello to user@example.com"
+
+def test_sms_notification():
+    notifier = SMSNotifier()
+    service = NotificationService(notifier)
+    result = service.send("Hello", "+1234567890")
+    assert result == "SMS sent: Hello to +1234567890"` },
+                    { name: 'notification.py', content: `class EmailNotifier:
+    def send(self, message, recipient):
+        return f"Email sent: {message} to {recipient}"
+
+class SMSNotifier:
+    def send(self, message, recipient):
+        return f"SMS sent: {message} to {recipient}"
+
+class NotificationService:
+    def __init__(self, notifier):
+        self.notifier = notifier
+    
+    def send(self, message, recipient):
+        return self.notifier.send(message, recipient)` }
+                ],
+                'Functions & Decorators': [
+                    { name: 'functions_test.py', content: `def test_timer_decorator():
+    @timer
+    def slow_function():
+        import time
+        time.sleep(0.1)
+        return "done"
+    
+    result = slow_function()
+    assert result == "done"` },
+                    { name: 'functions.py', content: `import time
+import functools
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} took {end - start:.2f} seconds")
+        return result
+    return wrapper` }
+                ],
+                'Generators & Iterators': [
+                    { name: 'generators_test.py', content: `def test_fibonacci_generator():
+    fib = fibonacci(5)
+    result = list(fib)
+    assert result == [0, 1, 1, 2, 3]` },
+                    { name: 'generators.py', content: `def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b` }
+                ],
+                'Context Managers': [
+                    { name: 'context_managers_test.py', content: `def test_file_context_manager():
+    with FileManager("test.txt", "w") as f:
+        f.write("Hello, World!")
+    
+    with FileManager("test.txt", "r") as f:
+        content = f.read()
+    assert content == "Hello, World!"` },
+                    { name: 'context_managers.py', content: `class FileManager:
+    def __init__(self, filename, mode):
+        self.filename = filename
+        self.mode = mode
+        self.file = None
+    
+    def __enter__(self):
+        self.file = open(self.filename, self.mode)
+        return self.file
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()` }
+                ],
+                'Property Decorators': [
+                    { name: 'properties_test.py', content: `def test_temperature_property():
+    temp = Temperature()
+    temp.celsius = 25
+    assert temp.celsius == 25
+    assert temp.fahrenheit == 77` },
+                    { name: 'properties.py', content: `class Temperature:
+    def __init__(self):
+        self._celsius = 0
+    
+    @property
+    def celsius(self):
+        return self._celsius
+    
+    @celsius.setter
+    def celsius(self, value):
+        self._celsius = value
+    
+    @property
+    def fahrenheit(self):
+        return self._celsius * 9/5 + 32` }
+                ],
+                'Magic Methods': [
+                    { name: 'magic_methods_test.py', content: `def test_vector_creation():
+    v = Vector(3, 4)
+    assert str(v) == "Vector(3, 4)"
+    assert len(v) == 5` },
+                    { name: 'magic_methods.py', content: `import math
+
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+    
+    def __len__(self):
+        return int(math.sqrt(self.x**2 + self.y**2))` }
+                ]
+            };
+            
+            const files = chapterFiles[currentChapter] || [];
+            
+            if (files.length === 0) {
+                fileList.innerHTML = '<p class="text-muted">No code files available for this chapter.</p>';
+                return;
+            }
+            
+            let html = '';
+            files.forEach(file => {
+                html += `
+                    <div class="code-block-container mb-4">
+                        <div class="code-block-header">
+                            <span>${file.name}</span>
+                            <button class="copy-btn" onclick="copyCodeFromCard(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">${file.content}</div>
+                    </div>
+                `;
+            });
+            fileList.innerHTML = html;
+        }
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                // Visual feedback
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // View code in modal
+        function viewCode(filename, content) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">${filename}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body p-0">
+                            <div class="code-block-container">
+                                <div class="code-block-header">
+                                    <span>${filename}</span>
+                                    <button class="copy-btn" onclick="copyCodeFromModal(this)">Copy</button>
+                                </div>
+                                <div class="code-block-content">${content}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', () => {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // Copy code from modal
+        function copyCodeFromModal(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Copy code from card
+        function copyCodeFromCard(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Enhanced code block processing
+        function processCodeBlocks() {
+            // Find all code blocks and enhance them
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const container = document.createElement('div');
+                container.className = 'code-block-container';
+                
+                const header = document.createElement('div');
+                header.className = 'code-block-header';
+                header.innerHTML = `
+                    <span>Code</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                `;
+                
+                const content = document.createElement('div');
+                content.className = 'code-block-content';
+                content.textContent = block.textContent;
+                
+                container.appendChild(header);
+                container.appendChild(content);
+                
+                block.parentElement.replaceWith(container);
+            });
+        }
+
+        // Add click handlers to sidebar links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.chapter-link');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const chapterId = this.getAttribute('href').substring(1);
+                    showChapter(chapterId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

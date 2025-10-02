@@ -1,0 +1,48 @@
+<h2>Your First Python Program with TDD</h2>
+<p>Let's start with the classic "Hello, world" program, but we'll do it the TDD way!</p>
+
+<h3>Step 1: Write Your First Test (Red Phase)</h3>
+<p>Start by writing a test that describes what you want your function to do. This test will fail initially because the function doesn't exist yet.</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>hello_world_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_hello_returns_hello_world():
+    result = hello()
+    assert result == "Hello, world"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest hello_world_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>hello()</code> function doesn't exist yet.</em></p>
+
+<h3>Step 2: Write Minimal Implementation (Green Phase)</h3>
+<p>Now write the minimal code to make the test pass. Don't over-engineer it!</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>hello_world.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def hello():
+    return "Hello, world"</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest hello_world_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Refactor (Optional)</h3>
+<p>Since this is a simple function, there's not much to refactor. But in more complex code, this is where you'd improve the code while keeping the tests green.</p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Red-Green-Refactor cycle:</strong> Write failing test → Make it pass → Improve code</li>
+    <li><strong>Test-first approach:</strong> Think about what you want before how to implement it</li>
+    <li><strong>Minimal implementation:</strong> Write just enough code to make the test pass</li>
+    <li><strong>Confidence:</strong> Tests give you confidence that your code works</li>
+</ul>
+
+<div class="alert alert-success mt-4">
+    <h5>🎉 Congratulations!</h5>
+    <p>You've completed your first TDD cycle! You now understand the fundamental Red-Green-Refactor process that we'll use throughout this course.</p>
+</div>
+
+
+

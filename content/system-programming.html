@@ -1,0 +1,48 @@
+<div class="chapter-content">
+    <h2>System Programming</h2>
+    
+    <p>Learn to interact with the operating system, manage files and processes, and build system-level applications. This chapter covers file I/O, process management, and system administration tasks using Python.</p>
+
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Handle file and directory operations</li>
+        <li>Manage system processes and subprocesses</li>
+        <li>Work with environment variables and configuration</li>
+        <li>Implement logging and monitoring</li>
+        <li>Build command-line tools</li>
+        <li>Test system interactions safely</li>
+    </ul>
+
+    <h3>What We'll Build</h3>
+    <p>A file management system that can organize, backup, and monitor files with logging and configuration management.</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>System Operations</span>
+        </div>
+        <div class="code-block-content">
+# File management system
+file_manager = FileManager()
+
+# File operations
+file_manager.organize_files_by_type("/downloads")
+file_manager.backup_directory("/important", "/backup")
+file_manager.monitor_directory("/watch", callback=on_file_change)
+
+# Process management
+process_manager = ProcessManager()
+process_manager.start_service("my_service.py")
+process_manager.monitor_processes(["nginx", "postgres"])
+
+# System monitoring
+monitor = SystemMonitor()
+cpu_usage = monitor.get_cpu_usage()
+memory_info = monitor.get_memory_info()
+disk_space = monitor.get_disk_usage("/")
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Pro Tip:</strong> When testing system operations, use temporary directories and mock system calls to avoid affecting the actual system. Always clean up test resources.
+    </div>
+</div>

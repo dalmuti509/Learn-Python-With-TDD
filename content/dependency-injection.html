@@ -1,0 +1,102 @@
+<h2>Dependency Injection Patterns</h2>
+<p>Let's explore dependency injection through TDD. We'll build a notification system that can send messages via different channels.</p>
+
+<h3>Step 1: Test Email Notification (Red Phase)</h3>
+<p>Start with a test for sending an email notification:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>notification_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_email_notification():
+    notifier = EmailNotifier()
+    service = NotificationService(notifier)
+    result = service.send("Hello", "user@example.com")
+    assert result == "Email sent: Hello to user@example.com"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest notification_test.py -v</code></p>
+<p><em>Expected result: The test fails because the classes don't exist yet.</em></p>
+
+<h3>Step 2: Implement Email Notification (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>notification.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class EmailNotifier:
+    def send(self, message, recipient):
+        return f"Email sent: {message} to {recipient}"
+
+class NotificationService:
+    def __init__(self, notifier):
+        self.notifier = notifier
+    
+    def send(self, message, recipient):
+        return self.notifier.send(message, recipient)</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest notification_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test SMS Notification (Red Phase)</h3>
+<p>Now add a test for SMS notifications using the same service:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>notification_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_email_notification():
+    notifier = EmailNotifier()
+    service = NotificationService(notifier)
+    result = service.send("Hello", "user@example.com")
+    assert result == "Email sent: Hello to user@example.com"
+
+def test_sms_notification():
+    notifier = SMSNotifier()
+    service = NotificationService(notifier)
+    result = service.send("Hello", "+1234567890")
+    assert result == "SMS sent: Hello to +1234567890"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest notification_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>SMSNotifier</code> doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement SMS Notification (Green Phase)</h3>
+<p>Add the SMS notifier implementation:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>notification.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class EmailNotifier:
+    def send(self, message, recipient):
+        return f"Email sent: {message} to {recipient}"
+
+class SMSNotifier:
+    def send(self, message, recipient):
+        return f"SMS sent: {message} to {recipient}"
+
+class NotificationService:
+    def __init__(self, notifier):
+        self.notifier = notifier
+    
+    def send(self, message, recipient):
+        return self.notifier.send(message, recipient)</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest notification_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Dependency injection:</strong> Passing dependencies through constructor</li>
+    <li><strong>Interface consistency:</strong> Different implementations with same interface</li>
+    <li><strong>Loose coupling:</strong> Service doesn't depend on specific notifier types</li>
+    <li><strong>Testability:</strong> Easy to test with different implementations</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for a push notification service and a logging decorator. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

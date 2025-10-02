@@ -1,0 +1,119 @@
+<h2>Resource Management with `with` Statements</h2>
+<p>Let's explore Python's context managers through TDD. We'll build a file manager and a timer context manager.</p>
+
+<h3>Step 1: Test File Context Manager (Red Phase)</h3>
+<p>Start with a test for a file context manager:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>context_managers_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_file_context_manager():
+    with FileManager("test.txt", "w") as f:
+        f.write("Hello, World!")
+    
+    with FileManager("test.txt", "r") as f:
+        content = f.read()
+    assert content == "Hello, World!"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest context_managers_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>FileManager</code> class doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement File Context Manager (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>context_managers.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class FileManager:
+    def __init__(self, filename, mode):
+        self.filename = filename
+        self.mode = mode
+        self.file = None
+    
+    def __enter__(self):
+        self.file = open(self.filename, self.mode)
+        return self.file
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest context_managers_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Timer Context Manager (Red Phase)</h3>
+<p>Now add a test for a timer context manager:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>context_managers_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_file_context_manager():
+    with FileManager("test.txt", "w") as f:
+        f.write("Hello, World!")
+    
+    with FileManager("test.txt", "r") as f:
+        content = f.read()
+    assert content == "Hello, World!"
+
+def test_timer_context_manager():
+    with Timer() as t:
+        import time
+        time.sleep(0.1)
+    assert t.elapsed > 0</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest context_managers_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>Timer</code> class doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Timer Context Manager (Green Phase)</h3>
+<p>Add the timer context manager implementation:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>context_managers.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">import time
+
+class FileManager:
+    def __init__(self, filename, mode):
+        self.filename = filename
+        self.mode = mode
+        self.file = None
+    
+    def __enter__(self):
+        self.file = open(self.filename, self.mode)
+        return self.file
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()
+
+class Timer:
+    def __enter__(self):
+        self.start = time.time()
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.end = time.time()
+        self.elapsed = self.end - self.start</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest context_managers_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Context managers:</strong> Using <code>__enter__</code> and <code>__exit__</code> methods</li>
+    <li><strong>Resource management:</strong> Automatic cleanup with <code>with</code> statements</li>
+    <li><strong>Exception handling:</strong> Context managers handle exceptions gracefully</li>
+    <li><strong>Custom contexts:</strong> Creating reusable resource management patterns</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for a database connection context manager and a temporary directory manager. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+<h3><a href="/">🐍 Learn Python with Tests</a></h3>
+<hr>
+
+<h5>📚 Fundamentals</h5>
+<ul class="list-unstyled">
+    {% for chapter in course_structure.fundamentals %}
+    <li class="mb-2">
+        <a href="/chapter/{{ chapter.path }}" class="text-decoration-none">
+            {{ chapter.name }}
+        </a>
+        <small class="text-muted d-block">{{ chapter.description }}</small>
+    </li>
+    {% endfor %}
+</ul>
+
+<h5>⚡ Advanced Concepts</h5>
+<ul class="list-unstyled">
+    {% for chapter in course_structure.advanced %}
+    <li class="mb-2">
+        <a href="/chapter/{{ chapter.path }}" class="text-decoration-none">
+            {{ chapter.name }}
+        </a>
+        <small class="text-muted d-block">{{ chapter.description }}</small>
+    </li>
+    {% endfor %}
+</ul>
+
+<hr>
+<div class="mt-3">
+    <small class="text-muted">
+        Inspired by <a href="https://quii.gitbook.io/learn-go-with-tests/" target="_blank" class="text-decoration-none">Learn Go with Tests</a>
+    </small>
+</div>

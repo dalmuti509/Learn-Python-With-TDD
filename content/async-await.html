@@ -1,0 +1,308 @@
+<div class="chapter-content">
+    <h2>Async/Await</h2>
+    
+    <p>Asynchronous programming allows you to write concurrent code that can handle multiple operations simultaneously without blocking. Python's async/await syntax makes it easy to write asynchronous code that's both efficient and readable.</p>
+
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Understand asynchronous programming concepts</li>
+        <li>Master async/await syntax</li>
+        <li>Work with asyncio for concurrent operations</li>
+        <li>Handle asynchronous I/O operations</li>
+        <li>Test asynchronous code effectively</li>
+        <li>Avoid common async/await pitfalls</li>
+    </ul>
+
+    <h3>What We'll Build</h3>
+    <p>We'll create an <code>AsyncOperations</code> class that demonstrates asynchronous programming patterns:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Expected Functionality</span>
+        </div>
+        <div class="code-block-content">
+# Async HTTP requests
+async_ops = AsyncOperations()
+results = await async_ops.fetch_multiple_urls([
+    "https://api.example1.com",
+    "https://api.example2.com"
+])
+
+# Concurrent processing
+tasks = [
+    async_ops.process_data(data1),
+    async_ops.process_data(data2),
+    async_ops.process_data(data3)
+]
+results = await asyncio.gather(*tasks)
+
+# Async file operations
+content = await async_ops.read_file_async("data.txt")
+await async_ops.write_file_async("output.txt", content)
+
+# Producer-consumer pattern
+queue = asyncio.Queue()
+await asyncio.gather(
+    async_ops.producer(queue),
+    async_ops.consumer(queue)
+)
+        </div>
+    </div>
+
+    <h3>Key Concepts</h3>
+
+    <h4>Async/Await Syntax</h4>
+    <ul>
+        <li><code>async def</code>: Define coroutine functions</li>
+        <li><code>await</code>: Wait for async operations to complete</li>
+        <li>Coroutines: Functions that can be paused and resumed</li>
+        <li>Event loop: Manages and executes async operations</li>
+    </ul>
+
+    <h4>Concurrency vs Parallelism</h4>
+    <ul>
+        <li><strong>Concurrency</strong>: Multiple tasks making progress (async/await)</li>
+        <li><strong>Parallelism</strong>: Multiple tasks running simultaneously (multiprocessing)</li>
+        <li>Async is great for I/O-bound operations</li>
+        <li>Use threading/multiprocessing for CPU-bound tasks</li>
+    </ul>
+
+    <h4>Common Async Patterns</h4>
+    <ul>
+        <li><code>asyncio.gather()</code>: Run multiple coroutines concurrently</li>
+        <li><code>asyncio.create_task()</code>: Schedule coroutine execution</li>
+        <li><code>asyncio.Queue</code>: Async-safe queue for producer-consumer</li>
+        <li><code>asyncio.Semaphore</code>: Limit concurrent operations</li>
+    </ul>
+
+    <h3>TDD Walkthrough: Building Your First Async Function</h3>
+    <p>Let's implement async functionality using Test-Driven Development:</p>
+
+    <h4>🔴 Red Phase: Failing Async Test</h4>
+    <p>First, examine the failing test for a simple async function:</p>
+    
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>async_operations_test.py (existing test)</span>
+        </div>
+        <div class="code-block-content">
+@pytest.mark.asyncio
+async def test_simple_async_function(self):
+    """Should return value from async function."""
+    async_ops = AsyncOperations()
+    result = await async_ops.simple_async_function()
+    assert result == "Hello, async world!"
+        </div>
+    </div>
+
+    <p>Run the test to see it fail:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ cd source/async-await
+$ pytest -v -k test_simple_async_function
+
+FAILED: TypeError: object NoneType can't be used in 'await' expression
+        </div>
+    </div>
+
+    <h4>🟢 Green Phase: Minimal Async Implementation</h4>
+    <p>Implement the simplest async function that makes the test pass:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>async_operations.py - First Implementation</span>
+        </div>
+        <div class="code-block-content">
+async def simple_async_function(self):
+    """A simple async function that returns a value."""
+    return "Hello, async world!"
+        </div>
+    </div>
+
+    <p>Run the test again:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ pytest -v -k test_simple_async_function
+
+PASSED async_operations_test.py::TestBasicAsync::test_simple_async_function ✓
+        </div>
+    </div>
+
+    <h4>🔵 Refactor Phase: Understanding Async</h4>
+    <p>Let's add some async behavior and understand what makes it asynchronous:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Enhanced with actual async behavior</span>
+        </div>
+        <div class="code-block-content">
+import asyncio
+
+async def simple_async_function(self):
+    """A simple async function that returns a value."""
+    # Simulate some async work
+    await asyncio.sleep(0.01)  # Non-blocking sleep
+    return "Hello, async world!"
+        </div>
+    </div>
+
+    <h3>TDD for Concurrent Operations</h3>
+    <p>Now let's implement concurrent data fetching:</p>
+
+    <h4>🔴 Red: Concurrent Fetching Test</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test for fetching multiple URLs concurrently</span>
+        </div>
+        <div class="code-block-content">
+@pytest.mark.asyncio
+async def test_fetch_multiple_urls(self):
+    """Should fetch multiple URLs concurrently."""
+    async_ops = AsyncOperations()
+    urls = [
+        "https://api.example1.com",
+        "https://api.example2.com", 
+        "https://api.example3.com"
+    ]
+    results = await async_ops.fetch_multiple_urls(urls)
+    assert len(results) == 3
+    for i, result in enumerate(results):
+        assert result["url"] == urls[i]
+        </div>
+    </div>
+
+    <h4>🟢 Green: Concurrent Implementation</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Using asyncio.gather for concurrency</span>
+        </div>
+        <div class="code-block-content">
+async def fetch_multiple_urls(self, urls):
+    """Fetch data from multiple URLs concurrently."""
+    # Create tasks for concurrent execution
+    tasks = [self.fetch_data(url) for url in urls]
+    # Wait for all tasks to complete
+    return await asyncio.gather(*tasks)
+
+async def fetch_data(self, url):
+    """Simulate fetching data from a URL."""
+    # Simulate network delay
+    await asyncio.sleep(0.1)
+    return {"url": url, "data": f"Data from {url}"}
+        </div>
+    </div>
+
+    <h4>🔵 Refactor: Error Handling</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Add error handling and timeouts</span>
+        </div>
+        <div class="code-block-content">
+async def fetch_multiple_urls(self, urls):
+    """Fetch data from multiple URLs concurrently."""
+    async def safe_fetch(url):
+        try:
+            return await asyncio.wait_for(
+                self.fetch_data(url), 
+                timeout=5.0
+            )
+        except asyncio.TimeoutError:
+            return {"url": url, "error": "Timeout"}
+    
+    tasks = [safe_fetch(url) for url in urls]
+    return await asyncio.gather(*tasks)
+        </div>
+    </div>
+
+    <h3>TDD for Producer-Consumer Pattern</h3>
+    <p>Async programming shines with producer-consumer patterns:</p>
+
+    <h4>🔴 Red: Producer-Consumer Test</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test async queue operations</span>
+        </div>
+        <div class="code-block-content">
+@pytest.mark.asyncio
+async def test_producer_consumer(self):
+    """Should implement producer-consumer pattern."""
+    async_ops = AsyncOperations()
+    queue = asyncio.Queue()
+    items = ["item1", "item2", "item3"]
+    
+    # Run producer and consumer concurrently
+    producer_task = asyncio.create_task(
+        async_ops.producer(queue, items)
+    )
+    consumer_task = asyncio.create_task(
+        async_ops.consumer(queue, len(items))
+    )
+    
+    await producer_task
+    consumed_items = await consumer_task
+    assert consumed_items == items
+        </div>
+    </div>
+
+    <h4>🟢 Green: Queue Implementation</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Async producer and consumer</span>
+        </div>
+        <div class="code-block-content">
+async def producer(self, queue, items):
+    """Produce items and put them in queue."""
+    for item in items:
+        await queue.put(item)
+        await asyncio.sleep(0.01)  # Simulate work
+
+async def consumer(self, queue, num_items):
+    """Consume items from queue."""
+    consumed = []
+    for _ in range(num_items):
+        item = await queue.get()
+        consumed.append(item)
+        await asyncio.sleep(0.01)  # Simulate processing
+    return consumed
+        </div>
+    </div>
+
+    <h3>Your Async TDD Journey</h3>
+    <p>Follow the TDD cycle for the remaining async operations:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Complete TDD Workflow</span>
+        </div>
+        <div class="code-block-content">
+# 1. Install pytest-asyncio for async testing
+pip install pytest-asyncio
+
+# 2. Run all async tests
+pytest -v
+
+# 3. Focus on one failing async test
+pytest -v -k test_async_sleep_and_return
+
+# 4. Implement with async/await
+async def async_sleep_and_return(self, seconds, value):
+    await asyncio.sleep(seconds)
+    return value
+
+# 5. Verify test passes
+pytest -v -k test_async_sleep_and_return
+
+# 6. Continue with next async operation
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Pro Tip:</strong> Use async/await for I/O-bound operations like network requests, file operations, and database queries. For CPU-bound tasks, consider using multiprocessing instead. Always test async code with pytest-asyncio!
+    </div>
+</div>

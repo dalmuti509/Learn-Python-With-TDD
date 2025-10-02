@@ -1,0 +1,126 @@
+<h2>Function Decorators and Closures</h2>
+<p>Let's explore Python's decorators through TDD. We'll build a timing decorator and a retry mechanism.</p>
+
+<h3>Step 1: Test Timer Decorator (Red Phase)</h3>
+<p>Start with a test for a timer decorator:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>functions_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_timer_decorator():
+    @timer
+    def slow_function():
+        import time
+        time.sleep(0.1)
+        return "done"
+    
+    result = slow_function()
+    assert result == "done"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest functions_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>timer</code> decorator doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Timer Decorator (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>functions.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">import time
+import functools
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} took {end - start:.2f} seconds")
+        return result
+    return wrapper</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest functions_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Retry Decorator (Red Phase)</h3>
+<p>Now add a test for a retry decorator:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>functions_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_timer_decorator():
+    @timer
+    def slow_function():
+        import time
+        time.sleep(0.1)
+        return "done"
+    
+    result = slow_function()
+    assert result == "done"
+
+def test_retry_decorator():
+    @retry(max_attempts=3)
+    def flaky_function():
+        return "success"
+    
+    result = flaky_function()
+    assert result == "success"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest functions_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>retry</code> decorator doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Retry Decorator (Green Phase)</h3>
+<p>Add the retry decorator implementation:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>functions.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">import time
+import functools
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} took {end - start:.2f} seconds")
+        return result
+    return wrapper
+
+def retry(max_attempts=3):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if attempt == max_attempts - 1:
+                        raise e
+            return None
+        return wrapper
+    return decorator</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest functions_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Decorators:</strong> Functions that modify other functions</li>
+    <li><strong>Closures:</strong> Functions that capture variables from their enclosing scope</li>
+    <li><strong>functools.wraps:</strong> Preserving function metadata in decorators</li>
+    <li><strong>Higher-order functions:</strong> Functions that take or return other functions</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for a caching decorator and a rate-limiting decorator. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

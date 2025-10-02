@@ -1,0 +1,92 @@
+<h2>Working with Numbers and Basic Math</h2>
+<p>Let's explore Python's integer operations through TDD.</p>
+
+<h3>Step 1: Test Addition (Red Phase)</h3>
+<p>Start with the simplest operation - addition. Write a test for what you want:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>calculator_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_add():
+    calc = Calculator()
+    result = calc.add(2, 3)
+    assert result == 5</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest calculator_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>Calculator</code> class doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Addition (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>calculator.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Calculator:
+    def add(self, a, b):
+        return a + b</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Subtraction (Red Phase)</h3>
+<p>Now add a test for subtraction:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>calculator_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_add():
+    calc = Calculator()
+    result = calc.add(2, 3)
+    assert result == 5
+
+def test_subtract():
+    calc = Calculator()
+    result = calc.subtract(5, 3)
+    assert result == 2</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest calculator_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>subtract</code> doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Subtraction (Green Phase)</h3>
+<p>Add the minimal implementation for subtraction:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>calculator.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Calculator:
+    def add(self, a, b):
+        return a + b
+    
+    def subtract(self, a, b):
+        return a - b</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>Step 5: Continue the Cycle</h3>
+<p>You would continue this pattern for multiplication, division, and any other features. Each time:</p>
+<ol>
+    <li><strong>Red:</strong> Write a failing test for the next feature</li>
+    <li><strong>Green:</strong> Write minimal code to make it pass</li>
+    <li><strong>Refactor:</strong> Improve the code while keeping tests green</li>
+</ol>
+
+<h3>Key TDD Principles</h3>
+<ul>
+    <li><strong>One test at a time:</strong> Focus on one small piece of functionality</li>
+    <li><strong>Minimal implementation:</strong> Write just enough code to pass the test</li>
+    <li><strong>Incremental progress:</strong> Build features one by one</li>
+    <li><strong>Confidence:</strong> Each test gives you confidence in your code</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for multiplication and division. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

@@ -1,0 +1,245 @@
+<div class="chapter-content">
+    <h2>Sets & Data Structures</h2>
+    
+    <p>Python provides several built-in data structures beyond lists and dictionaries. In this chapter, we'll explore sets, tuples, and advanced data structure patterns using Test-Driven Development.</p>
+
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Understand Python sets and their operations</li>
+        <li>Work with tuples and named tuples</li>
+        <li>Implement custom data structures</li>
+        <li>Use collections module effectively</li>
+        <li>Apply TDD to data structure design</li>
+    </ul>
+
+    <h3>What We'll Build</h3>
+    <p>We'll create a <code>DataStructures</code> class that demonstrates various Python data structures and their use cases:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Expected Functionality</span>
+        </div>
+        <div class="code-block-content">
+# Set operations
+unique_items = data_structures.get_unique_items([1, 2, 2, 3, 3, 4])
+# Returns: {1, 2, 3, 4}
+
+# Set intersection and union
+common = data_structures.find_common_elements({1, 2, 3}, {2, 3, 4})
+# Returns: {2, 3}
+
+# Named tuples for structured data
+person = data_structures.create_person("Alice", 30, "Engineer")
+# Returns: Person(name='Alice', age=30, job='Engineer')
+
+# Counter for frequency analysis
+word_count = data_structures.count_words("hello world hello")
+# Returns: Counter({'hello': 2, 'world': 1})
+
+# Deque for efficient queue operations
+queue = data_structures.create_queue()
+data_structures.enqueue(queue, "first")
+data_structures.enqueue(queue, "second")
+item = data_structures.dequeue(queue)
+# Returns: "first"
+        </div>
+    </div>
+
+    <h3>Key Concepts</h3>
+
+    <h4>Sets</h4>
+    <p>Sets are unordered collections of unique elements. They're perfect for:</p>
+    <ul>
+        <li>Removing duplicates from sequences</li>
+        <li>Mathematical set operations (union, intersection, difference)</li>
+        <li>Fast membership testing</li>
+    </ul>
+
+    <h4>Tuples and Named Tuples</h4>
+    <p>Tuples are immutable sequences, while named tuples provide structure:</p>
+    <ul>
+        <li>Tuples for fixed collections of related data</li>
+        <li>Named tuples for lightweight data classes</li>
+        <li>Immutability for data integrity</li>
+    </ul>
+
+    <h4>Collections Module</h4>
+    <p>The collections module provides specialized data structures:</p>
+    <ul>
+        <li><code>Counter</code> for counting hashable objects</li>
+        <li><code>deque</code> for efficient append/pop operations</li>
+        <li><code>defaultdict</code> for dictionaries with default values</li>
+        <li><code>OrderedDict</code> for maintaining insertion order</li>
+    </ul>
+
+    <h3>TDD Walkthrough: Building get_unique_items()</h3>
+    <p>Let's walk through the complete TDD cycle for implementing the <code>get_unique_items</code> method:</p>
+
+    <h4>🔴 Red Phase: Write a Failing Test</h4>
+    <p>First, let's look at the failing test:</p>
+    
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>data_structures_test.py (existing test)</span>
+        </div>
+        <div class="code-block-content">
+def test_get_unique_items_from_list(self):
+    """Should return unique items as a set."""
+    ds = DataStructures()
+    result = ds.get_unique_items([1, 2, 2, 3, 3, 4, 1])
+    assert result == {1, 2, 3, 4}
+    assert isinstance(result, set)
+        </div>
+    </div>
+
+    <p>Run the test to see it fail:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ cd source/sets-data-structures
+$ pytest -v -k test_get_unique_items_from_list
+
+FAILED data_structures_test.py::TestSets::test_get_unique_items_from_list
+TypeError: 'NoneType' object is not iterable
+        </div>
+    </div>
+
+    <h4>🟢 Green Phase: Make the Test Pass</h4>
+    <p>Now implement the minimal code to make the test pass:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>data_structures.py - First Implementation</span>
+        </div>
+        <div class="code-block-content">
+def get_unique_items(self, items):
+    """Return unique items from a list as a set."""
+    return set(items)
+        </div>
+    </div>
+
+    <p>Run the test again:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ pytest -v -k test_get_unique_items_from_list
+
+PASSED data_structures_test.py::TestSets::test_get_unique_items_from_list ✓
+        </div>
+    </div>
+
+    <h4>🔵 Refactor Phase: Improve the Code</h4>
+    <p>The implementation is already clean and efficient! Let's add error handling:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>data_structures.py - Refactored</span>
+        </div>
+        <div class="code-block-content">
+def get_unique_items(self, items):
+    """Return unique items from a list as a set."""
+    if not items:
+        return set()
+    return set(items)
+        </div>
+    </div>
+
+    <p>Let's add a test for the edge case and verify it passes:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Additional Test</span>
+        </div>
+        <div class="code-block-content">
+def test_get_unique_items_empty_list(self):
+    """Should return empty set for empty list."""
+    ds = DataStructures()
+    result = ds.get_unique_items([])
+    assert result == set()
+        </div>
+    </div>
+
+    <h3>TDD Cycle for Set Operations</h3>
+    <p>Now let's implement set intersection following the same TDD approach:</p>
+
+    <h4>🔴 Red: Failing Test for find_common_elements</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Run this test (it will fail)</span>
+        </div>
+        <div class="code-block-content">
+$ pytest -v -k test_find_common_elements
+
+FAILED: TypeError: 'NoneType' object is not iterable
+        </div>
+    </div>
+
+    <h4>🟢 Green: Minimal Implementation</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Make it pass with minimal code</span>
+        </div>
+        <div class="code-block-content">
+def find_common_elements(self, set1, set2):
+    """Find common elements between two sets (intersection)."""
+    return set1 & set2  # Set intersection operator
+        </div>
+    </div>
+
+    <h4>🔵 Refactor: Add Input Validation</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Improved with validation</span>
+        </div>
+        <div class="code-block-content">
+def find_common_elements(self, set1, set2):
+    """Find common elements between two sets (intersection)."""
+    # Convert to sets if they aren't already
+    if not isinstance(set1, set):
+        set1 = set(set1)
+    if not isinstance(set2, set):
+        set2 = set(set2)
+    return set1 & set2
+        </div>
+    </div>
+
+    <h3>Your Turn: Complete TDD Exercise</h3>
+    <p>Now it's your turn! Follow the Red-Green-Refactor cycle for the remaining methods:</p>
+
+    <ol>
+        <li><strong>🔴 Red</strong>: Run <code>pytest -v</code> to see all failing tests</li>
+        <li><strong>🟢 Green</strong>: Implement one method at a time to make tests pass</li>
+        <li><strong>🔵 Refactor</strong>: Improve code quality while keeping tests green</li>
+        <li><strong>Repeat</strong>: Move to the next failing test</li>
+    </ol>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Start Your TDD Journey</span>
+        </div>
+        <div class="code-block-content">
+cd source/sets-data-structures
+pytest -v  # See all failing tests
+pytest -v -k test_union_sets  # Focus on one test
+# Implement union_sets method
+pytest -v -k test_union_sets  # Verify it passes
+# Move to next test...
+        </div>
+    </div>
+
+    <h3>Tips</h3>
+    <ul>
+        <li>Use set comprehensions for concise set operations</li>
+        <li>Remember that sets are unordered - don't rely on order</li>
+        <li>Named tuples are created using <code>collections.namedtuple()</code></li>
+        <li>Deques provide O(1) append and pop operations at both ends</li>
+        <li>Counter objects support mathematical operations like addition and subtraction</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Pro Tip:</strong> Sets use hash tables internally, making membership testing very fast (O(1) average case). This makes them ideal for checking if items exist in large collections.
+    </div>
+</div>

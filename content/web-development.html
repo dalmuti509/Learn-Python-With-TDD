@@ -1,0 +1,268 @@
+<div class="chapter-content">
+    <h2>Web Development</h2>
+    
+    <p>Learn to build web applications using Python frameworks like Flask and FastAPI. This chapter covers REST APIs, web services, and modern web development patterns using Test-Driven Development.</p>
+
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Build REST APIs with Flask and FastAPI</li>
+        <li>Handle HTTP requests and responses</li>
+        <li>Implement authentication and authorization</li>
+        <li>Work with databases and ORMs</li>
+        <li>Test web applications effectively</li>
+        <li>Deploy web applications</li>
+    </ul>
+
+    <h3>What We'll Build</h3>
+    <p>A complete REST API for a task management system with CRUD operations, authentication, and testing.</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>API Endpoints</span>
+        </div>
+        <div class="code-block-content">
+# Task Management API
+GET    /api/tasks          # List all tasks
+POST   /api/tasks          # Create new task
+GET    /api/tasks/{id}     # Get specific task
+PUT    /api/tasks/{id}     # Update task
+DELETE /api/tasks/{id}     # Delete task
+
+# Authentication
+POST   /api/auth/login     # User login
+POST   /api/auth/register  # User registration
+GET    /api/auth/profile   # Get user profile
+        </div>
+    </div>
+
+    <h3>TDD Walkthrough: Building a REST API</h3>
+    <p>Let's build a task management API using Test-Driven Development:</p>
+
+    <h4>🔴 Red Phase: Failing API Test</h4>
+    <p>Start with a test for creating a task:</p>
+    
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>web_app_test.py (existing test)</span>
+        </div>
+        <div class="code-block-content">
+def test_create_task(self):
+    """Should create a new task."""
+    task_manager = TaskManager()
+    task = task_manager.create_task(
+        title="Learn TDD",
+        description="Practice test-driven development",
+        user_id=1
+    )
+    assert task["title"] == "Learn TDD"
+    assert task["id"] is not None
+    assert task["completed"] is False
+        </div>
+    </div>
+
+    <p>Run the test to see it fail:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ cd source/web-development
+$ pytest -v -k test_create_task
+
+FAILED: TypeError: 'NoneType' object is not subscriptable
+        </div>
+    </div>
+
+    <h4>🟢 Green Phase: Minimal Implementation</h4>
+    <p>Implement the simplest task creation that makes the test pass:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>web_app.py - First Implementation</span>
+        </div>
+        <div class="code-block-content">
+def __init__(self):
+    """Initialize the TaskManager."""
+    self.tasks = {}
+    self.next_id = 1
+
+def create_task(self, title, description, user_id):
+    """Create a new task."""
+    task = {
+        "id": self.next_id,
+        "title": title,
+        "description": description,
+        "user_id": user_id,
+        "completed": False
+    }
+    self.tasks[self.next_id] = task
+    self.next_id += 1
+    return task
+        </div>
+    </div>
+
+    <h4>🔵 Refactor Phase: Add Validation</h4>
+    <p>Add input validation and error handling:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Enhanced with validation</span>
+        </div>
+        <div class="code-block-content">
+def create_task(self, title, description, user_id):
+    """Create a new task."""
+    # Validate input
+    if not title or not title.strip():
+        raise ValueError("Title is required")
+    if not isinstance(user_id, int) or user_id <= 0:
+        raise ValueError("Valid user_id is required")
+    
+    task = {
+        "id": self.next_id,
+        "title": title.strip(),
+        "description": description.strip() if description else "",
+        "user_id": user_id,
+        "completed": False,
+        "created_at": datetime.now().isoformat()
+    }
+    self.tasks[self.next_id] = task
+    self.next_id += 1
+    return task
+        </div>
+    </div>
+
+    <h3>TDD for CRUD Operations</h3>
+    <p>Continue with Read, Update, Delete operations:</p>
+
+    <h4>🔴 Red: Test GET Task</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test retrieving a task</span>
+        </div>
+        <div class="code-block-content">
+def test_get_task(self):
+    """Should retrieve a task by ID."""
+    task_manager = TaskManager()
+    created_task = task_manager.create_task("Test", "Description", 1)
+    
+    retrieved_task = task_manager.get_task(created_task["id"])
+    assert retrieved_task["title"] == "Test"
+    assert retrieved_task["id"] == created_task["id"]
+        </div>
+    </div>
+
+    <h4>🟢 Green: Implement GET</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Simple task retrieval</span>
+        </div>
+        <div class="code-block-content">
+def get_task(self, task_id):
+    """Get a task by ID."""
+    return self.tasks.get(task_id)
+        </div>
+    </div>
+
+    <h4>🔵 Refactor: Error Handling</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Add proper error handling</span>
+        </div>
+        <div class="code-block-content">
+def get_task(self, task_id):
+    """Get a task by ID."""
+    if not isinstance(task_id, int) or task_id <= 0:
+        raise ValueError("Invalid task ID")
+    
+    task = self.tasks.get(task_id)
+    if not task:
+        raise KeyError(f"Task {task_id} not found")
+    
+    return task
+        </div>
+    </div>
+
+    <h3>TDD for Authentication</h3>
+    <p>Add user authentication following TDD:</p>
+
+    <h4>🔴 Red: Authentication Test</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test user authentication</span>
+        </div>
+        <div class="code-block-content">
+def test_authenticate_user(self):
+    """Should authenticate valid user credentials."""
+    task_manager = TaskManager()
+    # Assume user exists in system
+    user = task_manager.authenticate_user("john_doe", "secure_password")
+    assert user["username"] == "john_doe"
+    assert "password" not in user  # Don't return password
+        </div>
+    </div>
+
+    <h4>🟢 Green: Basic Auth</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Simple authentication</span>
+        </div>
+        <div class="code-block-content">
+def __init__(self):
+    self.tasks = {}
+    self.next_id = 1
+    # Mock user database
+    self.users = {
+        "john_doe": {
+            "id": 1,
+            "username": "john_doe", 
+            "password_hash": "hashed_secure_password"
+        }
+    }
+
+def authenticate_user(self, username, password):
+    """Authenticate a user."""
+    user = self.users.get(username)
+    if user and self._verify_password(password, user["password_hash"]):
+        return {"id": user["id"], "username": user["username"]}
+    return None
+
+def _verify_password(self, password, password_hash):
+    """Verify password against hash (simplified)."""
+    return password_hash == f"hashed_{password}"
+        </div>
+    </div>
+
+    <h3>Your Web Development TDD Journey</h3>
+    <p>Complete the REST API using TDD principles:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>TDD Workflow for Web APIs</span>
+        </div>
+        <div class="code-block-content">
+# 1. Run all tests to see failures
+pytest -v
+
+# 2. Implement one endpoint at a time
+pytest -v -k test_update_task
+
+# 3. Add HTTP status codes and proper responses
+def update_task(self, task_id, **kwargs):
+    task = self.get_task(task_id)  # May raise KeyError
+    for key, value in kwargs.items():
+        if key in ["title", "description", "completed"]:
+            task[key] = value
+    return task
+
+# 4. Test authorization
+pytest -v -k test_authorize_task_access
+
+# 5. Add validation for each field
+pytest -v -k test_validate_task_data
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Pro Tip:</strong> Always test your API endpoints thoroughly. Use TDD to ensure proper HTTP status codes, request validation, authentication, and error handling. Test both success and failure scenarios!
+    </div>
+</div>

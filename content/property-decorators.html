@@ -1,0 +1,112 @@
+<h2>`@property`, `@setter`, `@deleter`</h2>
+<p>Let's explore Python's property decorators through TDD. We'll build a temperature class with computed properties.</p>
+
+<h3>Step 1: Test Temperature Property (Red Phase)</h3>
+<p>Start with a test for a temperature class with property access:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>properties_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_temperature_property():
+    temp = Temperature()
+    temp.celsius = 25
+    assert temp.celsius == 25
+    assert temp.fahrenheit == 77</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest properties_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>Temperature</code> class doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Basic Temperature Class (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>properties.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Temperature:
+    def __init__(self):
+        self._celsius = 0
+    
+    @property
+    def celsius(self):
+        return self._celsius
+    
+    @celsius.setter
+    def celsius(self, value):
+        self._celsius = value
+    
+    @property
+    def fahrenheit(self):
+        return self._celsius * 9/5 + 32</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest properties_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Fahrenheit Setter (Red Phase)</h3>
+<p>Now add a test for setting temperature in Fahrenheit:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>properties_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_temperature_property():
+    temp = Temperature()
+    temp.celsius = 25
+    assert temp.celsius == 25
+    assert temp.fahrenheit == 77
+
+def test_fahrenheit_setter():
+    temp = Temperature()
+    temp.fahrenheit = 86
+    assert temp.fahrenheit == 86
+    assert temp.celsius == 30</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest properties_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>fahrenheit</code> setter doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Fahrenheit Setter (Green Phase)</h3>
+<p>Add the fahrenheit setter implementation:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>properties.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Temperature:
+    def __init__(self):
+        self._celsius = 0
+    
+    @property
+    def celsius(self):
+        return self._celsius
+    
+    @celsius.setter
+    def celsius(self, value):
+        self._celsius = value
+    
+    @property
+    def fahrenheit(self):
+        return self._celsius * 9/5 + 32
+    
+    @fahrenheit.setter
+    def fahrenheit(self, value):
+        self._celsius = (value - 32) * 5/9</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest properties_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>@property:</strong> Creating getter methods that act like attributes</li>
+    <li><strong>@setter:</strong> Creating setter methods for property assignment</li>
+    <li><strong>@deleter:</strong> Creating deleter methods for property cleanup</li>
+    <li><strong>Computed properties:</strong> Properties that calculate values on access</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for a Kelvin property and validation in the setters. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

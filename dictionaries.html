@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionaries - Learn Python with Tests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .chapter-content {
+            padding: 20px;
+        }
+        
+        /* Enhanced Code Block Styling */
+        .code-block-container {
+            position: relative;
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .code-block-header {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-block-content {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 16px;
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .copy-btn {
+            background: #4a5568;
+            color: #e2e8f0;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: #718096;
+        }
+        
+        .copy-btn.copied {
+            background: #38a169;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->`r`n            <div id="sidebar-container" class="col-md-3"></div>`r`n            `r`n            <!-- Main Content -->`r`n            <div class="col-md-9 chapter-content">
+                <div class="chapter-nav">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Dictionaries</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Dictionaries</h1>
+                    <div>
+                        <a href="exceptions.html" class="btn btn-outline-secondary me-2">← Previous: Exceptions</a>
+                        <a href="dependency-injection.html" class="btn btn-primary">Next: Dependency Injection →</a>
+                    </div>
+                </div>
+
+                <h2>Dictionaries in Python</h2>
+                <p>Let's explore Python's dictionary operations through TDD. We'll build a student management system.</p>
+                
+                <h3>Step 1: Test Dictionary Creation (Red Phase)</h3>
+                <p>Start with a test for creating a student manager:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: The test fails because the <code>StudentManager</code> class doesn't exist yet.</em></p>
+                
+                <h3>Step 2: Implement StudentManager Class (Green Phase)</h3>
+                <p>Write the minimal code to make the test pass:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: The test now passes! 🎉</em></p>
+                
+                <h3>Step 3: Test Adding Students (Red Phase)</h3>
+                <p>Now add a test for adding a student to the dictionary:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}
+
+def test_add_student():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    assert manager.students["Alice"] == 85</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: The first test passes, but the second fails because <code>add_student</code> method doesn't exist yet.</em></p>
+                
+                <h3>Step 4: Implement Add Student Method (Green Phase)</h3>
+                <p>Add the minimal implementation for adding students:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, grade):
+        self.students[name] = grade</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: Both tests now pass! 🎉</em></p>
+                
+                <h3>Step 5: Test Getting Student Grade (Red Phase)</h3>
+                <p>Add a test for retrieving a student's grade:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}
+
+def test_add_student():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    assert manager.students["Alice"] == 85
+
+def test_get_student_grade():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    grade = manager.get_grade("Alice")
+    assert grade == 85</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: The first two tests pass, but the third fails because <code>get_grade</code> method doesn't exist yet.</em></p>
+                
+                <h3>Step 6: Implement Get Grade Method (Green Phase)</h3>
+                <p>Add the implementation for getting a student's grade:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, grade):
+        self.students[name] = grade
+    
+    def get_grade(self, name):
+        return self.students[name]</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: All tests now pass! 🎉</em></p>
+                
+                <h3>Step 7: Test Safe Dictionary Access (Red Phase)</h3>
+                <p>Add a test for handling non-existent students safely:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}
+
+def test_add_student():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    assert manager.students["Alice"] == 85
+
+def test_get_student_grade():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    grade = manager.get_grade("Alice")
+    assert grade == 85
+
+def test_get_nonexistent_student():
+    manager = StudentManager()
+    grade = manager.get_grade("Bob")
+    assert grade is None</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: The first three tests pass, but the fourth fails because the method raises a KeyError instead of returning None.</em></p>
+                
+                <h3>Step 8: Implement Safe Dictionary Access (Green Phase)</h3>
+                <p>Update the method to handle missing keys safely:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>student_manager.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, grade):
+        self.students[name] = grade
+    
+    def get_grade(self, name):
+        return self.students.get(name)</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+                <p><em>Expected result: All tests now pass! 🎉</em></p>
+                
+                <h3>What We Learned</h3>
+                <ul>
+                    <li><strong>Dictionary creation:</strong> Using <code>{}</code> to create empty dictionaries</li>
+                    <li><strong>Dictionary access:</strong> Using <code>dict[key]</code> to get values</li>
+                    <li><strong>Safe access:</strong> Using <code>dict.get(key)</code> to avoid KeyError</li>
+                    <li><strong>Dictionary assignment:</strong> Using <code>dict[key] = value</code> to set values</li>
+                    <li><strong>TDD with dictionaries:</strong> Building dictionary operations incrementally</li>
+                </ul>
+
+                <div class="alert alert-info mt-4">
+                    <h5>💡 Exercise</h5>
+                    <p>Try adding tests and implementations for removing students, getting all student names, and calculating the average grade. Remember to follow the Red-Green-Refactor cycle!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>
+
+
+

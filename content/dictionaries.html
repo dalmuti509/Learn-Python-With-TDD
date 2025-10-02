@@ -1,0 +1,127 @@
+<h2>Dictionaries in Python</h2>
+<p>Let's explore Python's dictionary operations through TDD. We'll build a student management system.</p>
+
+<h3>Step 1: Test Dictionary Creation (Red Phase)</h3>
+<p>Start with a test for creating a student manager:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>student_manager_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>StudentManager</code> class doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement StudentManager Class (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>student_manager.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Adding Students (Red Phase)</h3>
+<p>Now add a test for adding a student to the dictionary:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>student_manager_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}
+
+def test_add_student():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    assert manager.students["Alice"] == 85</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>add_student</code> method doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Add Student Method (Green Phase)</h3>
+<p>Add the minimal implementation for adding students:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>student_manager.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, grade):
+        self.students[name] = grade</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>Step 5: Test Getting Student Grade (Red Phase)</h3>
+<p>Add a test for retrieving a student's grade:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>student_manager_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_student_manager_creation():
+    manager = StudentManager()
+    assert manager.students == {}
+
+def test_add_student():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    assert manager.students["Alice"] == 85
+
+def test_get_student_grade():
+    manager = StudentManager()
+    manager.add_student("Alice", 85)
+    grade = manager.get_grade("Alice")
+    assert grade == 85</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest student_manager_test.py -v</code></p>
+<p><em>Expected result: The first two tests pass, but the third fails because <code>get_grade</code> method doesn't exist yet.</em></p>
+
+<h3>Step 6: Implement Get Grade Method (Green Phase)</h3>
+<p>Add the implementation for getting a student's grade:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>student_manager.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class StudentManager:
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, grade):
+        self.students[name] = grade
+    
+    def get_grade(self, name):
+        return self.students.get(name)</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+<p><em>Expected result: All tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Dictionary creation:</strong> Using <code>{}</code> to create empty dictionaries</li>
+    <li><strong>Dictionary access:</strong> Using keys to store and retrieve values</li>
+    <li><strong>Dictionary methods:</strong> Using <code>.get()</code> for safe access</li>
+    <li><strong>TDD with dictionaries:</strong> Building dictionary operations incrementally</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for removing students and calculating average grades. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

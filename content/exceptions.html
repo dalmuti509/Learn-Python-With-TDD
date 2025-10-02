@@ -1,0 +1,89 @@
+<h2>References and Exception Handling</h2>
+<p>Let's explore Python's exception handling through TDD. We'll build a file processor that handles errors gracefully.</p>
+
+<h3>Step 1: Test File Reading (Red Phase)</h3>
+<p>Start with a test for reading a file that exists:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>file_processor_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_read_existing_file():
+    # Create a test file first
+    with open("test.txt", "w") as f:
+        f.write("Hello, World!")
+    
+    result = read_file("test.txt")
+    assert result == "Hello, World!"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest file_processor_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>read_file</code> function doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Basic File Reading (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>file_processor.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def read_file(filename):
+    with open(filename, 'r') as f:
+        return f.read()</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest file_processor_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test File Not Found Exception (Red Phase)</h3>
+<p>Now add a test for handling a file that doesn't exist:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>file_processor_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_read_existing_file():
+    # Create a test file first
+    with open("test.txt", "w") as f:
+        f.write("Hello, World!")
+    
+    result = read_file("test.txt")
+    assert result == "Hello, World!"
+
+def test_read_nonexistent_file():
+    result = read_file("nonexistent.txt")
+    assert result is None</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest file_processor_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because the function raises an exception instead of returning None.</em></p>
+
+<h3>Step 4: Implement Exception Handling (Green Phase)</h3>
+<p>Add exception handling to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>file_processor.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def read_file(filename):
+    try:
+        with open(filename, 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        return None</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest file_processor_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>try-except blocks:</strong> Handling exceptions gracefully</li>
+    <li><strong>FileNotFoundError:</strong> Built-in exception for missing files</li>
+    <li><strong>Exception handling strategy:</strong> Returning None vs raising exceptions</li>
+    <li><strong>TDD with exceptions:</strong> Testing both success and failure cases</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for custom exceptions and handling multiple exception types. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

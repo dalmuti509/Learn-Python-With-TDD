@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes - Learn Python with Tests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div id="sidebar-container" class="col-md-3"></div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 chapter-content">
+                <div class="chapter-nav">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Classes</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Classes</h1>
+                    <div>
+                        <a href="arrays.html" class="btn btn-outline-secondary me-2">← Previous: Arrays</a>
+                        <a href="exceptions.html" class="btn btn-primary">Next: Exceptions →</a>
+                    </div>
+                </div>
+
+                <h2>Classes and Objects in Python</h2>
+                <p>Let's explore object-oriented programming in Python through TDD. We'll build a simple banking system.</p>
+                
+                <h3>Step 1: Test Account Creation (Red Phase)</h3>
+                <p>Start with a test for creating a basic account:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>account_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_account_creation():
+    account = Account("John", 1000)
+    assert account.owner == "John"
+    assert account.balance == 1000</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest account_test.py -v</code></p>
+                <p><em>Expected result: The test fails because the <code>Account</code> class doesn't exist yet.</em></p>
+                
+                <h3>Step 2: Implement Account Class (Green Phase)</h3>
+                <p>Write the minimal code to make the test pass:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>account.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+                <p><em>Expected result: The test now passes! 🎉</em></p>
+                
+                <h3>Step 3: Test Deposit Method (Red Phase)</h3>
+                <p>Now add a test for depositing money:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>account_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_account_creation():
+    account = Account("John", 1000)
+    assert account.owner == "John"
+    assert account.balance == 1000
+
+def test_deposit():
+    account = Account("John", 1000)
+    account.deposit(500)
+    assert account.balance == 1500</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest account_test.py -v</code></p>
+                <p><em>Expected result: The first test passes, but the second fails because <code>deposit</code> method doesn't exist yet.</em></p>
+                
+                <h3>Step 4: Implement Deposit Method (Green Phase)</h3>
+                <p>Add the minimal implementation for deposit:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>account.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+    
+    def deposit(self, amount):
+        self.balance += amount</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+                <p><em>Expected result: Both tests now pass! 🎉</em></p>
+                
+                <h3>Step 5: Test Withdrawal Method (Red Phase)</h3>
+                <p>Add a test for withdrawing money:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>account_test.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">def test_account_creation():
+    account = Account("John", 1000)
+    assert account.owner == "John"
+    assert account.balance == 1000
+
+def test_deposit():
+    account = Account("John", 1000)
+    account.deposit(500)
+    assert account.balance == 1500
+
+def test_withdraw():
+    account = Account("John", 1000)
+    account.withdraw(300)
+    assert account.balance == 700</div>
+                </div>
+                <p><strong>Run the test:</strong> <code>pytest account_test.py -v</code></p>
+                <p><em>Expected result: The first two tests pass, but the third fails because <code>withdraw</code> method doesn't exist yet.</em></p>
+                
+                <h3>Step 6: Implement Withdrawal Method (Green Phase)</h3>
+                <p>Add the implementation for withdrawal:</p>
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <span>account.py</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+    
+    def deposit(self, amount):
+        self.balance += amount
+    
+    def withdraw(self, amount):
+        self.balance -= amount</div>
+                </div>
+                <p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+                <p><em>Expected result: All tests now pass! 🎉</em></p>
+                
+                <h3>What We Learned</h3>
+                <ul>
+                    <li><strong>Class definition:</strong> Using <code>class</code> keyword to define objects</li>
+                    <li><strong>Constructor:</strong> <code>__init__</code> method for object initialization</li>
+                    <li><strong>Instance methods:</strong> Functions that operate on object instances</li>
+                    <li><strong>Object state:</strong> Using instance variables to store data</li>
+                    <li><strong>TDD with classes:</strong> Building object-oriented code incrementally</li>
+                </ul>
+
+                <div class="alert alert-info mt-4">
+                    <h5>💡 Exercise</h5>
+                    <p>Try adding tests and implementations for checking if an account has sufficient funds before withdrawal, and adding a method to get account information. Remember to follow the Red-Green-Refactor cycle!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<h2>Dunder Methods and Object Behavior</h2>
+<p>Let's explore Python's magic methods through TDD. We'll build a Vector class with custom behavior.</p>
+
+<h3>Step 1: Test Vector Creation (Red Phase)</h3>
+<p>Start with a test for creating a Vector:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>magic_methods_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_vector_creation():
+    v = Vector(3, 4)
+    assert v.x == 3
+    assert v.y == 4</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest magic_methods_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>Vector</code> class doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Basic Vector Class (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>magic_methods.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest magic_methods_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test String Representation (Red Phase)</h3>
+<p>Now add a test for string representation:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>magic_methods_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_vector_creation():
+    v = Vector(3, 4)
+    assert v.x == 3
+    assert v.y == 4
+
+def test_vector_string_representation():
+    v = Vector(3, 4)
+    assert str(v) == "Vector(3, 4)"
+    assert repr(v) == "Vector(3, 4)"</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest magic_methods_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>__str__</code> and <code>__repr__</code> methods don't exist yet.</em></p>
+
+<h3>Step 4: Implement String Methods (Green Phase)</h3>
+<p>Add the string representation methods:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>magic_methods.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+    
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest magic_methods_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>Step 5: Test Vector Addition (Red Phase)</h3>
+<p>Add a test for vector addition:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>magic_methods_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_vector_creation():
+    v = Vector(3, 4)
+    assert v.x == 3
+    assert v.y == 4
+
+def test_vector_string_representation():
+    v = Vector(3, 4)
+    assert str(v) == "Vector(3, 4)"
+    assert repr(v) == "Vector(3, 4)"
+
+def test_vector_addition():
+    v1 = Vector(1, 2)
+    v2 = Vector(3, 4)
+    v3 = v1 + v2
+    assert v3.x == 4
+    assert v3.y == 6</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest magic_methods_test.py -v</code></p>
+<p><em>Expected result: The first two tests pass, but the third fails because <code>__add__</code> method doesn't exist yet.</em></p>
+
+<h3>Step 6: Implement Vector Addition (Green Phase)</h3>
+<p>Add the vector addition method:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>magic_methods.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+    
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"
+    
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest magic_methods_test.py -v</code></p>
+<p><em>Expected result: All tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>__init__:</strong> Constructor method for object initialization</li>
+    <li><strong>__str__:</strong> String representation for user-friendly output</li>
+    <li><strong>__repr__:</strong> String representation for debugging</li>
+    <li><strong>__add__:</strong> Custom behavior for the + operator</li>
+    <li><strong>Magic methods:</strong> Customizing object behavior with dunder methods</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for vector subtraction (<code>__sub__</code>), multiplication (<code>__mul__</code>), and equality (<code>__eq__</code>). Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ chapter_info.name if chapter_info else chapter_path }} - Learn Python with Tests{% endblock %}
+
+{% block content %}
+<div class="chapter-nav">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">{{ chapter_info.name if chapter_info else chapter_path }}</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ chapter_info.name if chapter_info else chapter_path }}</h1>
+    <div>
+        <button id="run-tests-btn" class="btn btn-success run-tests-btn" onclick="runTests('{{ chapter_path }}')">Run Tests</button>
+        <button class="btn btn-outline-secondary" onclick="toggleCode()">Toggle Code</button>
+    </div>
+</div>
+
+{% if chapter_info %}
+<p class="lead">{{ chapter_info.description }}</p>
+{% endif %}
+
+<div id="chapter-content">
+    {{ content | safe }}
+</div>
+
+<div id="test-output" class="mt-4 hidden">
+    <h4>Test Output</h4>
+    <div id="test-results"></div>
+</div>
+
+<div id="code-files" class="mt-4 hidden">
+    <h4>Code Files</h4>
+    <div id="file-list"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/chapter.js"></script>
+<script>
+    // Initialize chapter-specific functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up toggle code functionality with chapter path
+        const toggleBtn = document.querySelector('button[onclick="toggleCode()"]');
+        if (toggleBtn) {
+            toggleBtn.onclick = function() {
+                const codeFiles = document.getElementById('code-files');
+                if (codeFiles.style.display === 'none' || codeFiles.classList.contains('hidden')) {
+                    codeFiles.style.display = 'block';
+                    codeFiles.classList.remove('hidden');
+                    loadCodeFiles('{{ chapter_path }}');
+                } else {
+                    codeFiles.style.display = 'none';
+                    codeFiles.classList.add('hidden');
+                }
+            };
+        }
+    });
+</script>
+{% endblock %}
+

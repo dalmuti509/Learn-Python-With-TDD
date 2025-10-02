@@ -1,0 +1,153 @@
+/* Common CSS for Learn Python with Tests */
+
+/* Ensure proper flexbox layout for sidebar and content */
+.container-fluid .row {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* Custom sidebar width - override Bootstrap col-md-3 */
+.col-md-3.sidebar {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+
+.col-md-9.chapter-content {
+    flex: 0 0 80%;
+    max-width: 80%;
+    padding: 25px;
+    padding-left: 15px;
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 25px;
+    width: 100%;
+}
+
+/* Template-specific styles */
+.test-output {
+    background-color: #1a202c;
+    color: #68d391;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+}
+
+.test-success {
+    color: #68d391;
+}
+
+.test-failure {
+    color: #fc8181;
+}
+
+.chapter-nav {
+    margin-bottom: 20px;
+}
+
+.run-tests-btn {
+    margin: 10px 0;
+}
+
+.sidebar h3 {
+    text-align: center;
+}
+
+.sidebar h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Utility classes for show/hide functionality */
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+/* Enhanced Code Block Styling */
+.code-block-container {
+    position: relative;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.code-block-header {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-block-content {
+    background: #1a202c;
+    color: #e2e8f0;
+    padding: 16px;
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.copy-btn {
+    background: #4a5568;
+    color: #e2e8f0;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.copy-btn:hover {
+    background: #718096;
+}
+
+.copy-btn.copied {
+    background: #38a169;
+}
+
+pre {
+    margin: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .container-fluid .row {
+        flex-wrap: wrap;
+    }
+    
+    .col-md-3.sidebar {
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-height: auto;
+    }
+    
+    .col-md-9.chapter-content {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 15px;
+    }
+}

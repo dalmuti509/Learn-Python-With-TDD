@@ -1,0 +1,400 @@
+<div class="chapter-content">
+    <h2>Functional Programming</h2>
+    
+    <p>Functional programming is a programming paradigm that treats computation as the evaluation of mathematical functions. Python supports functional programming concepts through higher-order functions, immutability, and functional tools.</p>
+
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Understand functional programming principles</li>
+        <li>Master higher-order functions (map, filter, reduce)</li>
+        <li>Work with lambda expressions effectively</li>
+        <li>Apply function composition and currying</li>
+        <li>Use immutable data patterns</li>
+        <li>Leverage functools for advanced operations</li>
+    </ul>
+
+    <h3>What We'll Build</h3>
+    <p>We'll create a <code>FunctionalProgramming</code> class that demonstrates functional programming concepts:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Expected Functionality</span>
+        </div>
+        <div class="code-block-content">
+# Higher-order functions
+numbers = [1, 2, 3, 4, 5]
+squared = fp.map_function(lambda x: x**2, numbers)
+# Returns: [1, 4, 9, 16, 25]
+
+evens = fp.filter_function(lambda x: x % 2 == 0, numbers)
+# Returns: [2, 4]
+
+total = fp.reduce_function(lambda x, y: x + y, numbers)
+# Returns: 15
+
+# Function composition
+add_one = lambda x: x + 1
+multiply_two = lambda x: x * 2
+composed = fp.compose(multiply_two, add_one)
+result = composed(5)  # (5 + 1) * 2 = 12
+
+# Currying
+multiply = fp.curry_multiply(3)
+result = multiply(4)  # Returns: 12
+
+# Immutable operations
+data = [1, 2, 3]
+new_data = fp.immutable_append(data, 4)
+# Original data unchanged: [1, 2, 3]
+# New data: [1, 2, 3, 4]
+        </div>
+    </div>
+
+    <h3>Key Concepts</h3>
+
+    <h4>Pure Functions</h4>
+    <p>Functions that always return the same output for the same input and have no side effects:</p>
+    <ul>
+        <li>No modification of external state</li>
+        <li>No I/O operations</li>
+        <li>Deterministic behavior</li>
+        <li>Easier to test and reason about</li>
+    </ul>
+
+    <h4>Higher-Order Functions</h4>
+    <p>Functions that take other functions as arguments or return functions:</p>
+    <ul>
+        <li><code>map()</code>: Apply function to each element</li>
+        <li><code>filter()</code>: Select elements based on predicate</li>
+        <li><code>reduce()</code>: Combine elements using function</li>
+        <li>Custom decorators and function factories</li>
+    </ul>
+
+    <h4>Immutability</h4>
+    <p>Data that cannot be changed after creation:</p>
+    <ul>
+        <li>Prevents accidental modifications</li>
+        <li>Enables safe concurrent programming</li>
+        <li>Makes code more predictable</li>
+        <li>Use tuples, frozensets, and immutable patterns</li>
+    </ul>
+
+    <h4>Function Composition</h4>
+    <p>Combining simple functions to build more complex operations:</p>
+    <ul>
+        <li>Chain functions together</li>
+        <li>Build complex logic from simple parts</li>
+        <li>Improve code reusability</li>
+        <li>Create pipelines of transformations</li>
+    </ul>
+
+    <h3>Functional Tools</h3>
+
+    <h4>Built-in Functions</h4>
+    <ul>
+        <li><code>map(func, iterable)</code>: Transform elements</li>
+        <li><code>filter(predicate, iterable)</code>: Select elements</li>
+        <li><code>zip(iter1, iter2, ...)</code>: Combine iterables</li>
+        <li><code>enumerate(iterable)</code>: Add indices</li>
+        <li><code>sorted(iterable, key=func)</code>: Sort with custom key</li>
+    </ul>
+
+    <h4>Functools Module</h4>
+    <ul>
+        <li><code>reduce()</code>: Cumulative operations</li>
+        <li><code>partial()</code>: Partial function application</li>
+        <li><code>wraps()</code>: Preserve function metadata</li>
+        <li><code>lru_cache()</code>: Memoization decorator</li>
+    </ul>
+
+    <h3>TDD Walkthrough: Building map_function()</h3>
+    <p>Let's walk through implementing a higher-order function using TDD:</p>
+
+    <h4>🔴 Red Phase: Start with a Failing Test</h4>
+    <p>First, examine the failing test for <code>map_function</code>:</p>
+    
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>functional_programming_test.py (existing test)</span>
+        </div>
+        <div class="code-block-content">
+def test_map_function(self):
+    """Should apply function to each element."""
+    fp = FunctionalProgramming()
+    numbers = [1, 2, 3, 4, 5]
+    result = fp.map_function(lambda x: x * 2, numbers)
+    assert result == [2, 4, 6, 8, 10]
+        </div>
+    </div>
+
+    <p>Run the test to see it fail:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ cd source/functional-programming
+$ pytest -v -k test_map_function
+
+FAILED functional_programming_test.py::TestHigherOrderFunctions::test_map_function
+TypeError: 'NoneType' object is not iterable
+        </div>
+    </div>
+
+    <h4>🟢 Green Phase: Minimal Implementation</h4>
+    <p>Implement the simplest solution that makes the test pass:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>functional_programming.py - First Implementation</span>
+        </div>
+        <div class="code-block-content">
+def map_function(self, func, iterable):
+    """Apply function to each element in iterable."""
+    return list(map(func, iterable))
+        </div>
+    </div>
+
+    <p>Run the test again:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Terminal</span>
+        </div>
+        <div class="code-block-content">
+$ pytest -v -k test_map_function
+
+PASSED functional_programming_test.py::TestHigherOrderFunctions::test_map_function ✓
+        </div>
+    </div>
+
+    <h4>🔵 Refactor Phase: Improve and Learn</h4>
+    <p>Now let's explore different implementations and understand the functional approach:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Alternative Implementation (List Comprehension)</span>
+        </div>
+        <div class="code-block-content">
+def map_function(self, func, iterable):
+    """Apply function to each element in iterable."""
+    # More Pythonic approach using list comprehension
+    return [func(item) for item in iterable]
+        </div>
+    </div>
+
+    <p>Both implementations pass the test. The functional programming principle here is <strong>transformation without mutation</strong>.</p>
+
+    <h3>TDD for Function Composition</h3>
+    <p>Let's implement function composition step by step:</p>
+
+    <h4>🔴 Red: Failing Composition Test</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Run this test (it will fail)</span>
+        </div>
+        <div class="code-block-content">
+$ pytest -v -k test_compose_two_functions
+
+FAILED: The test expects f(g(x)) composition
+        </div>
+    </div>
+
+    <h4>🟢 Green: Basic Composition</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Simple composition implementation</span>
+        </div>
+        <div class="code-block-content">
+def compose(self, f, g):
+    """Compose two functions: f(g(x))."""
+    return lambda x: f(g(x))
+        </div>
+    </div>
+
+    <h4>🔵 Refactor: Understanding the Pattern</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Test the composition</span>
+        </div>
+        <div class="code-block-content">
+# Test in Python REPL or add to your implementation:
+add_one = lambda x: x + 1
+multiply_two = lambda x: x * 2
+
+composed = fp.compose(multiply_two, add_one)
+result = composed(5)  # (5 + 1) * 2 = 12
+print(f"Result: {result}")  # Output: Result: 12
+        </div>
+    </div>
+
+    <h3>TDD for Immutable Operations</h3>
+    <p>Functional programming emphasizes immutability. Let's implement immutable append:</p>
+
+    <h4>🔴 Red: Test Immutability</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>The test ensures original data isn't modified</span>
+        </div>
+        <div class="code-block-content">
+def test_immutable_append(self):
+    """Should append without modifying original."""
+    fp = FunctionalProgramming()
+    original = [1, 2, 3]
+    result = fp.immutable_append(original, 4)
+    
+    assert original == [1, 2, 3]  # Original unchanged!
+    assert result == [1, 2, 3, 4]  # New list with item
+        </div>
+    </div>
+
+    <h4>🟢 Green: Immutable Implementation</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Create new list instead of modifying</span>
+        </div>
+        <div class="code-block-content">
+def immutable_append(self, lst, item):
+    """Append item to list without modifying original."""
+    return lst + [item]  # Creates new list
+        </div>
+    </div>
+
+    <h4>🔵 Refactor: Alternative Approaches</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Other immutable patterns</span>
+        </div>
+        <div class="code-block-content">
+def immutable_append(self, lst, item):
+    """Append item to list without modifying original."""
+    # Alternative 1: Using list comprehension
+    return [*lst, item]
+    
+    # Alternative 2: Using copy and append
+    new_list = lst.copy()
+    new_list.append(item)
+    return new_list
+        </div>
+    </div>
+
+    <h3>Complete TDD Exercise: Pure Functions</h3>
+    <p>Now implement pure functions following TDD. A pure function:</p>
+    <ul>
+        <li>Always returns the same output for the same input</li>
+        <li>Has no side effects (doesn't modify external state)</li>
+        <li>Doesn't depend on external mutable state</li>
+    </ul>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Your TDD Workflow</span>
+        </div>
+        <div class="code-block-content">
+# 1. Run all tests to see failures
+pytest -v
+
+# 2. Focus on one failing test
+pytest -v -k test_pure_factorial
+
+# 3. Implement minimal solution
+def pure_factorial(self, n):
+    if n <= 1:
+        return 1
+    return n * self.pure_factorial(n - 1)
+
+# 4. Verify test passes
+pytest -v -k test_pure_factorial
+
+# 5. Refactor if needed (add error handling, optimize)
+# 6. Move to next failing test
+        </div>
+    </div>
+
+    <h3>Functional Programming Principles in Action</h3>
+    <p>As you implement each method, notice these functional programming patterns:</p>
+
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Key Patterns You'll Implement</span>
+        </div>
+        <div class="code-block-content">
+# Higher-order functions
+result = map_function(lambda x: x**2, [1, 2, 3, 4])
+
+# Function composition  
+pipeline = compose(str.upper, str.strip)
+clean_text = pipeline("  hello world  ")
+
+# Immutability
+original = [1, 2, 3]
+new_list = immutable_append(original, 4)
+# original is unchanged!
+
+# Pure functions (no side effects)
+factorial_5 = pure_factorial(5)  # Always returns 120
+        </div>
+    </div>
+
+    <h3>Tips</h3>
+    <ul>
+        <li>Prefer list comprehensions over map/filter for simple cases</li>
+        <li>Use generator expressions for memory efficiency</li>
+        <li>Avoid modifying arguments - return new values instead</li>
+        <li>Consider using <code>functools.partial</code> for currying</li>
+        <li>Use <code>operator</code> module for common operations</li>
+        <li>Remember that lambda functions are limited to expressions</li>
+    </ul>
+
+    <div class="alert alert-info">
+        <strong>Pro Tip:</strong> Functional programming shines when processing data pipelines. Chain operations together using function composition to create clear, readable data transformations.
+    </div>
+
+    <h3>Common Patterns</h3>
+
+    <h4>Data Pipeline</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Example: Processing Numbers</span>
+        </div>
+        <div class="code-block-content">
+# Traditional approach
+result = []
+for x in numbers:
+    if x % 2 == 0:
+        result.append(x * 2)
+
+# Functional approach
+result = list(map(lambda x: x * 2, filter(lambda x: x % 2 == 0, numbers)))
+
+# List comprehension (Pythonic)
+result = [x * 2 for x in numbers if x % 2 == 0]
+        </div>
+    </div>
+
+    <h4>Function Composition</h4>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>Example: Chaining Operations</span>
+        </div>
+        <div class="code-block-content">
+def compose(f, g):
+    return lambda x: f(g(x))
+
+def pipe(*functions):
+    return lambda x: reduce(lambda acc, f: f(acc), functions, x)
+
+# Usage
+add_one = lambda x: x + 1
+multiply_two = lambda x: x * 2
+square = lambda x: x ** 2
+
+# Compose: f(g(x))
+composed = compose(multiply_two, add_one)
+result = composed(5)  # (5 + 1) * 2 = 12
+
+# Pipe: chain multiple functions
+pipeline = pipe(add_one, multiply_two, square)
+result = pipeline(5)  # ((5 + 1) * 2) ** 2 = 144
+        </div>
+    </div>
+</div>

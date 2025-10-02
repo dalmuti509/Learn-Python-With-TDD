@@ -1,0 +1,79 @@
+<h2>Loops and Iteration in Python</h2>
+<p>Let's explore Python's iteration capabilities through TDD.</p>
+
+<h3>Step 1: Test Basic Iteration (Red Phase)</h3>
+<p>Start with a simple function that returns a list of numbers:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>iteration_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_count_to_three():
+    result = count_to_three()
+    assert result == [1, 2, 3]</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest iteration_test.py -v</code></p>
+<p><em>Expected result: The test fails because <code>count_to_three()</code> doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Basic Iteration (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>iteration.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def count_to_three():
+    return [1, 2, 3]</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test List Comprehension (Red Phase)</h3>
+<p>Now add a test for a more complex iteration using list comprehension:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>iteration_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_count_to_three():
+    result = count_to_three()
+    assert result == [1, 2, 3]
+
+def test_count_even_numbers():
+    result = count_even_numbers(5)
+    assert result == [2, 4]</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest iteration_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>count_even_numbers</code> doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement List Comprehension (Green Phase)</h3>
+<p>Add the implementation using list comprehension:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>iteration.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def count_to_three():
+    return [1, 2, 3]
+
+def count_even_numbers(max_num):
+    return [x for x in range(1, max_num + 1) if x % 2 == 0]</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Basic iteration:</strong> Creating lists with simple loops</li>
+    <li><strong>List comprehensions:</strong> Python's elegant way to create lists</li>
+    <li><strong>Conditional iteration:</strong> Filtering elements during iteration</li>
+    <li><strong>TDD with iteration:</strong> Building iteration logic step by step</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for counting odd numbers and creating a list of squares. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

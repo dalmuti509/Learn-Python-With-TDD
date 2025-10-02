@@ -1,0 +1,133 @@
+<h2>Classes and Objects in Python</h2>
+<p>Let's explore object-oriented programming in Python through TDD. We'll build a simple banking system.</p>
+
+<h3>Step 1: Test Account Creation (Red Phase)</h3>
+<p>Start with a test for creating a basic account:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>account_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_account_creation():
+    account = Account("John", 1000)
+    assert account.owner == "John"
+    assert account.balance == 1000</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest account_test.py -v</code></p>
+<p><em>Expected result: The test fails because the <code>Account</code> class doesn't exist yet.</em></p>
+
+<h3>Step 2: Implement Account Class (Green Phase)</h3>
+<p>Write the minimal code to make the test pass:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>account.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+<p><em>Expected result: The test now passes! 🎉</em></p>
+
+<h3>Step 3: Test Deposit Method (Red Phase)</h3>
+<p>Now add a test for depositing money:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>account_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_account_creation():
+    account = Account("John", 1000)
+    assert account.owner == "John"
+    assert account.balance == 1000
+
+def test_deposit():
+    account = Account("John", 1000)
+    account.deposit(500)
+    assert account.balance == 1500</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest account_test.py -v</code></p>
+<p><em>Expected result: The first test passes, but the second fails because <code>deposit</code> method doesn't exist yet.</em></p>
+
+<h3>Step 4: Implement Deposit Method (Green Phase)</h3>
+<p>Add the minimal implementation for deposit:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>account.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+    
+    def deposit(self, amount):
+        self.balance += amount</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+<p><em>Expected result: Both tests now pass! 🎉</em></p>
+
+<h3>Step 5: Test Withdrawal Method (Red Phase)</h3>
+<p>Add a test for withdrawing money:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>account_test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_account_creation():
+    account = Account("John", 1000)
+    assert account.owner == "John"
+    assert account.balance == 1000
+
+def test_deposit():
+    account = Account("John", 1000)
+    account.deposit(500)
+    assert account.balance == 1500
+
+def test_withdraw():
+    account = Account("John", 1000)
+    account.withdraw(300)
+    assert account.balance == 700</div>
+</div>
+<p><strong>Run the test:</strong> <code>pytest account_test.py -v</code></p>
+<p><em>Expected result: The first two tests pass, but the third fails because <code>withdraw</code> method doesn't exist yet.</em></p>
+
+<h3>Step 6: Implement Withdrawal Method (Green Phase)</h3>
+<p>Add the implementation for withdrawal:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>account.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+    
+    def deposit(self, amount):
+        self.balance += amount
+    
+    def withdraw(self, amount):
+        self.balance -= amount</div>
+</div>
+<p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+<p><em>Expected result: All tests now pass! 🎉</em></p>
+
+<h3>What We Learned</h3>
+<ul>
+    <li><strong>Class definition:</strong> Using <code>class</code> keyword to define objects</li>
+    <li><strong>Constructor:</strong> <code>__init__</code> method for object initialization</li>
+    <li><strong>Instance methods:</strong> Functions that operate on object instances</li>
+    <li><strong>Object state:</strong> Using instance variables to store data</li>
+    <li><strong>TDD with classes:</strong> Building object-oriented code incrementally</li>
+</ul>
+
+<div class="alert alert-info mt-4">
+    <h5>💡 Exercise</h5>
+    <p>Try adding tests and implementations for checking if an account has sufficient funds before withdrawal, and adding a method to get account information. Remember to follow the Red-Green-Refactor cycle!</p>
+</div>
+
+
+

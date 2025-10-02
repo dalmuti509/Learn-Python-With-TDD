@@ -3,6 +3,15 @@
 
 <h3>Step 1: Test List Filtering (Red Phase)</h3>
 <p>Start with a function that filters positive numbers from a list:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> List filtering and conditional operations</p>
+    <ul>
+        <li><strong>List filtering:</strong> We want to keep only elements that meet a condition (positive numbers)</li>
+        <li><strong>Mixed data:</strong> Working with lists that contain both positive and negative numbers</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>list_operations_test.py</span>
@@ -18,19 +27,41 @@
 
 <h3>Step 2: Implement List Filtering (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>list_operations.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">def filter_positive(numbers):
-    return [x for x in numbers if x > 0]</div>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> List comprehensions for filtering</p>
+    <ul>
+        <li><strong>List comprehension:</strong> <code>[x for x in numbers if x > 0]</code> - Python's powerful filtering syntax</li>
+        <li><strong>Conditional filtering:</strong> <code>if x > 0</code> - Only includes elements that meet the condition</li>
+        <li><strong>Iteration:</strong> <code>for x in numbers</code> - Goes through each element in the list</li>
+    </ul>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>list_operations.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">def filter_positive(numbers):
+    return [x for x in numbers if x > 0]</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
+</div>
 
 <h3>Step 3: Test List Summation (Red Phase)</h3>
 <p>Now add a test for summing a list of numbers:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> List aggregation (combining all elements into one value)</p>
+    <ul>
+        <li><strong>Aggregation:</strong> We want to combine all list elements into a single value (sum)</li>
+        <li><strong>Built-in functions:</strong> Python has built-in functions for common operations like summing</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>list_operations_test.py</span>
@@ -51,19 +82,31 @@ def test_sum_list():
 
 <h3>Step 4: Implement List Summation (Green Phase)</h3>
 <p>Add the implementation for summing a list:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>list_operations.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">def filter_positive(numbers):
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Using built-in functions for efficiency</p>
+    <ul>
+        <li><strong>Built-in sum function:</strong> <code>return sum(numbers)</code> - Python has optimized built-in functions</li>
+        <li><strong>Leveraging Python:</strong> Using existing functionality instead of writing everything from scratch</li>
+    </ul>
+</div>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>list_operations.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">def filter_positive(numbers):
     return [x for x in numbers if x > 0]
 
 def sum_list(numbers):
     return sum(numbers)</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
+    <p><em>Expected result: Both tests now pass! 🎉</em></p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest list_operations_test.py -v</code></p>
-<p><em>Expected result: Both tests now pass! 🎉</em></p>
 
 <h3>What We Learned</h3>
 <ul>
@@ -77,6 +120,7 @@ def sum_list(numbers):
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for finding the maximum value in a list and reversing a list. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

@@ -3,6 +3,16 @@
 
 <h3>Step 1: Test Addition (Red Phase)</h3>
 <p>Start with the simplest operation - addition. Write a test for what you want:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> We're now working with classes and methods instead of simple functions</p>
+    <ul>
+        <li><strong>Class instantiation:</strong> <code>calc = Calculator()</code> - This creates a new object from a class</li>
+        <li><strong>Method calls:</strong> <code>calc.add(2, 3)</code> - This calls a method on an object</li>
+        <li><strong>Object-oriented programming:</strong> We're organizing code into classes that represent real-world concepts</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>calculator_test.py</span>
@@ -18,20 +28,42 @@
 
 <h3>Step 2: Implement Addition (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>calculator.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">class Calculator:
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Creating classes and methods</p>
+    <ul>
+        <li><strong>Class definition:</strong> <code>class Calculator:</code> - This creates a new class</li>
+        <li><strong>Self parameter:</strong> <code>self</code> is always the first parameter in class methods</li>
+        <li><strong>Method definition:</strong> <code>def add(self, a, b):</code> - This creates a method that belongs to the class</li>
+    </ul>
+</div>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>calculator.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">class Calculator:
     def add(self, a, b):
         return a + b</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
 
 <h3>Step 3: Test Subtraction (Red Phase)</h3>
 <p>Now add a test for subtraction:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Adding more methods to an existing class</p>
+    <ul>
+        <li><strong>Method expansion:</strong> We're adding a second method to our existing Calculator class</li>
+        <li><strong>Same pattern:</strong> Following the same TDD pattern we used for the add method</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>calculator_test.py</span>
@@ -52,6 +84,17 @@ def test_subtract():
 
 <h3>Step 4: Implement Subtraction (Green Phase)</h3>
 <p>Add the minimal implementation for subtraction:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Adding methods to existing classes</p>
+    <ul>
+        <li><strong>Method addition:</strong> We're adding a new method to our existing Calculator class</li>
+        <li><strong>Same structure:</strong> Following the same pattern as the add method</li>
+    </ul>
+</div>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>calculator.py</span>
@@ -66,6 +109,7 @@ def test_subtract():
 </div>
 <p><strong>Run the test again:</strong> <code>pytest calculator_test.py -v</code></p>
 <p><em>Expected result: Both tests now pass! 🎉</em></p>
+</div>
 
 <h3>Step 5: Continue the Cycle</h3>
 <p>You would continue this pattern for multiplication, division, and any other features. Each time:</p>
@@ -87,6 +131,7 @@ def test_subtract():
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for multiplication and division. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

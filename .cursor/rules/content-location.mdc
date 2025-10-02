@@ -1,0 +1,12 @@
+---
+description: Project Structure
+alwaysApply: true
+---
+- All content files must be located in the `content` directory.
+- All CSS files must be located in the `css` directory.
+- All JavaScript files must be located in the `javascript` directory.
+- All template files must be located in the `templates` directory.
+- For every HTML file in the `content` directory, there must be a matching Python (.py) file in the `source` directory.
+- The matching Python file must be a superset of all code demonstrated in the corresponding content HTML file.
+- templates + content generates a matching html file in the root at compile/runtime
+

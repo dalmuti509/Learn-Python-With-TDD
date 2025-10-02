@@ -3,6 +3,16 @@
 
 <h3>Step 1: Test Account Creation (Red Phase)</h3>
 <p>Start with a test for creating a basic account:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Object state and attributes</p>
+    <ul>
+        <li><strong>Object state:</strong> Objects can store data (like owner name and balance)</li>
+        <li><strong>Attribute access:</strong> <code>account.owner</code> and <code>account.balance</code> - Accessing object properties</li>
+        <li><strong>Constructor parameters:</strong> Classes can take initial values when creating objects</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>account_test.py</span>
@@ -18,21 +28,43 @@
 
 <h3>Step 2: Implement Account Class (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>account.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">class Account:
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Constructors and attribute assignment</p>
+    <ul>
+        <li><strong>Constructor method:</strong> <code>def __init__(self, owner, balance):</code> - Called when creating new objects</li>
+        <li><strong>Attribute assignment:</strong> <code>self.owner = owner</code> - Storing data in the object</li>
+        <li><strong>Self parameter:</strong> <code>self</code> refers to the current object instance</li>
+    </ul>
+</div>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>account.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">class Account:
     def __init__(self, owner, balance):
         self.owner = owner
         self.balance = balance</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
 
 <h3>Step 3: Test Deposit Method (Red Phase)</h3>
 <p>Now add a test for depositing money:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Methods that change object state</p>
+    <ul>
+        <li><strong>State mutation:</strong> Methods can change the object's internal data</li>
+        <li><strong>Object behavior:</strong> Objects can perform actions that modify their state</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>account_test.py</span>
@@ -53,6 +85,17 @@ def test_deposit():
 
 <h3>Step 4: Implement Deposit Method (Green Phase)</h3>
 <p>Add the minimal implementation for deposit:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Methods that modify object attributes</p>
+    <ul>
+        <li><strong>Attribute modification:</strong> <code>self.balance += amount</code> - Changing object data</li>
+        <li><strong>In-place operations:</strong> <code>+=</code> is shorthand for adding to existing values</li>
+    </ul>
+</div>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>account.py</span>
@@ -68,6 +111,7 @@ def test_deposit():
 </div>
 <p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
 <p><em>Expected result: Both tests now pass! 🎉</em></p>
+</div>
 
 <h3>Step 5: Test Withdrawal Method (Red Phase)</h3>
 <p>Add a test for withdrawing money:</p>
@@ -96,6 +140,8 @@ def test_withdraw():
 
 <h3>Step 6: Implement Withdrawal Method (Green Phase)</h3>
 <p>Add the implementation for withdrawal:</p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>account.py</span>
@@ -114,6 +160,7 @@ def test_withdraw():
 </div>
 <p><strong>Run the test again:</strong> <code>pytest account_test.py -v</code></p>
 <p><em>Expected result: All tests now pass! 🎉</em></p>
+</div>
 
 <h3>What We Learned</h3>
 <ul>
@@ -128,6 +175,7 @@ def test_withdraw():
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for checking if an account has sufficient funds before withdrawal, and adding a method to get account information. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

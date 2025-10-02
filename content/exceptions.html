@@ -21,17 +21,20 @@
 
 <h3>Step 2: Implement Basic File Reading (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>file_processor.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">def read_file(filename):
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>file_processor.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">def read_file(filename):
     with open(filename, 'r') as f:
         return f.read()</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest file_processor_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest file_processor_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
 
 <h3>Step 3: Test File Not Found Exception (Red Phase)</h3>
 <p>Now add a test for handling a file that doesn't exist:</p>
@@ -57,6 +60,8 @@ def test_read_nonexistent_file():
 
 <h3>Step 4: Implement Exception Handling (Green Phase)</h3>
 <p>Add exception handling to make the test pass:</p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>file_processor.py</span>
@@ -71,6 +76,7 @@ def test_read_nonexistent_file():
 </div>
 <p><strong>Run the test again:</strong> <code>pytest file_processor_test.py -v</code></p>
 <p><em>Expected result: Both tests now pass! 🎉</em></p>
+</div>
 
 <h3>What We Learned</h3>
 <ul>
@@ -84,6 +90,7 @@ def test_read_nonexistent_file():
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for custom exceptions and handling multiple exception types. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

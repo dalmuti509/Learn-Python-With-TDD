@@ -47,6 +47,24 @@ function highlightCurrentPage() {
     });
 }
 
+// Toggle Green Phase solution visibility
+function toggleGreenPhase(button) {
+    const solution = button.nextElementSibling;
+    const isHidden = solution.style.display === 'none';
+    
+    if (isHidden) {
+        solution.style.display = 'block';
+        button.textContent = 'Hide Green Phase Solution';
+        button.classList.remove('btn-outline-primary');
+        button.classList.add('btn-outline-secondary');
+    } else {
+        solution.style.display = 'none';
+        button.textContent = 'Show Green Phase Solution';
+        button.classList.remove('btn-outline-secondary');
+        button.classList.add('btn-outline-primary');
+    }
+}
+
 // Initialize syntax highlighting when page loads
 document.addEventListener('DOMContentLoaded', function() {
     // Highlight current page in sidebar

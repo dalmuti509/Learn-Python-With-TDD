@@ -3,6 +3,18 @@
 
 <h3>Step 1: Write Your First Test (Red Phase)</h3>
 <p>Start by writing a test that describes what you want your function to do. This test will fail initially because the function doesn't exist yet.</p>
+
+<div class="alert alert-info">
+    <h5>💡 Understanding the Test</h5>
+    <p><strong>What we're testing:</strong> We want a function called <code>hello()</code> that returns the text "Hello, world"</p>
+    <p><strong>Key concepts:</strong></p>
+    <ul>
+        <li><strong>Function definition:</strong> <code>def test_hello_returns_hello_world():</code> - This creates a test function</li>
+        <li><strong>Function call:</strong> <code>result = hello()</code> - This calls the function we want to create</li>
+        <li><strong>Assertion:</strong> <code>assert result == "Hello, world"</code> - This checks if the result matches our expectation</li>
+        <li><strong>String comparison:</strong> We're comparing the returned string with the exact text "Hello, world"</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>hello_world_test.py</span>
@@ -17,16 +29,32 @@
 
 <h3>Step 2: Write Minimal Implementation (Green Phase)</h3>
 <p>Now write the minimal code to make the test pass. Don't over-engineer it!</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>hello_world.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">def hello():
-    return "Hello, world"</div>
+
+<div class="alert alert-info">
+    <h5>💡 Understanding the Implementation</h5>
+    <p><strong>What we need to create:</strong> A function called <code>hello()</code> that returns "Hello, world"</p>
+    <p><strong>Key concepts for the implementation:</strong></p>
+    <ul>
+        <li><strong>Function definition:</strong> <code>def hello():</code> - This creates a function named "hello"</li>
+        <li><strong>Return statement:</strong> <code>return "Hello, world"</code> - This sends the text back to whoever calls the function</li>
+        <li><strong>String literal:</strong> <code>"Hello, world"</code> - This is the exact text we want to return (note the quotes)</li>
+        <li><strong>Minimal approach:</strong> We're writing the simplest possible code that makes the test pass</li>
+    </ul>
+    <p><strong>Why this works:</strong> When the test calls <code>hello()</code>, our function returns "Hello, world", which matches exactly what the test expects.</p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest hello_world_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>hello_world.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">def hello():
+    return "Hello, world"</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest hello_world_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
+</div>
 
 <h3>Step 3: Refactor (Optional)</h3>
 <p>Since this is a simple function, there's not much to refactor. But in more complex code, this is where you'd improve the code while keeping the tests green.</p>
@@ -43,6 +71,7 @@
     <h5>🎉 Congratulations!</h5>
     <p>You've completed your first TDD cycle! You now understand the fundamental Red-Green-Refactor process that we'll use throughout this course.</p>
 </div>
+
 
 
 

@@ -1,0 +1,6 @@
+---
+alwaysApply: true
+---
+- Start App when starting workspace
+- App should run in background terminal process so it can be stopped if necessary
+- After startup, verify the app is actually running

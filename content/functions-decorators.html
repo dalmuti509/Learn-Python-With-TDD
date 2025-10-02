@@ -23,12 +23,14 @@
 
 <h3>Step 2: Implement Timer Decorator (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>functions.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">import time
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>functions.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">import time
 import functools
 
 def timer(func):
@@ -40,9 +42,10 @@ def timer(func):
         print(f"{func.__name__} took {end - start:.2f} seconds")
         return result
     return wrapper</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest functions_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest functions_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
 
 <h3>Step 3: Test Retry Decorator (Red Phase)</h3>
 <p>Now add a test for a retry decorator:</p>
@@ -74,6 +77,8 @@ def test_retry_decorator():
 
 <h3>Step 4: Implement Retry Decorator (Green Phase)</h3>
 <p>Add the retry decorator implementation:</p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>functions.py</span>
@@ -108,6 +113,7 @@ def retry(max_attempts=3):
 </div>
 <p><strong>Run the test again:</strong> <code>pytest functions_test.py -v</code></p>
 <p><em>Expected result: Both tests now pass! 🎉</em></p>
+</div>
 
 <h3>What We Learned</h3>
 <ul>
@@ -121,6 +127,7 @@ def retry(max_attempts=3):
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for a caching decorator and a rate-limiting decorator. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

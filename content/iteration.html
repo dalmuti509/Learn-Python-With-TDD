@@ -3,6 +3,15 @@
 
 <h3>Step 1: Test Basic Iteration (Red Phase)</h3>
 <p>Start with a simple function that returns a list of numbers:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Working with lists instead of simple values</p>
+    <ul>
+        <li><strong>List comparison:</strong> <code>assert result == [1, 2, 3]</code> - We're comparing entire lists</li>
+        <li><strong>List literals:</strong> <code>[1, 2, 3]</code> - This creates a list with multiple values</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>iteration_test.py</span>
@@ -17,19 +26,41 @@
 
 <h3>Step 2: Implement Basic Iteration (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>iteration.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">def count_to_three():
-    return [1, 2, 3]</div>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Returning lists from functions</p>
+    <ul>
+        <li><strong>List return:</strong> <code>return [1, 2, 3]</code> - Functions can return lists, not just single values</li>
+        <li><strong>Minimal approach:</strong> We're using a hardcoded list for now (no loops yet)</li>
+    </ul>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>iteration.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">def count_to_three():
+    return [1, 2, 3]</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
+</div>
 
 <h3>Step 3: Test List Comprehension (Red Phase)</h3>
 <p>Now add a test for a more complex iteration using list comprehension:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> Functions with parameters and conditional logic</p>
+    <ul>
+        <li><strong>Function parameters:</strong> <code>count_even_numbers(5)</code> - Functions can take input values</li>
+        <li><strong>Conditional filtering:</strong> We only want numbers that are even (divisible by 2)</li>
+        <li><strong>List comprehension:</strong> We'll use Python's powerful syntax to filter lists</li>
+    </ul>
+</div>
 <div class="code-block-container">
     <div class="code-block-header">
         <span>iteration_test.py</span>
@@ -48,6 +79,19 @@ def test_count_even_numbers():
 
 <h3>Step 4: Implement List Comprehension (Green Phase)</h3>
 <p>Add the implementation using list comprehension:</p>
+
+<div class="alert alert-info">
+    <h5>💡 New Concepts</h5>
+    <p><strong>What's new here:</strong> List comprehensions and conditional filtering</p>
+    <ul>
+        <li><strong>List comprehension:</strong> <code>[x for x in range(1, max_num + 1) if x % 2 == 0]</code> - Python's powerful filtering syntax</li>
+        <li><strong>Range function:</strong> <code>range(1, max_num + 1)</code> - Creates a sequence of numbers</li>
+        <li><strong>Modulo operator:</strong> <code>%</code> gives the remainder when dividing (useful for checking even/odd)</li>
+        <li><strong>Conditional filtering:</strong> <code>if x % 2 == 0</code> - Only includes even numbers</li>
+    </ul>
+</div>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>iteration.py</span>
@@ -61,6 +105,7 @@ def count_even_numbers(max_num):
 </div>
 <p><strong>Run the test again:</strong> <code>pytest iteration_test.py -v</code></p>
 <p><em>Expected result: Both tests now pass! 🎉</em></p>
+</div>
 
 <h3>What We Learned</h3>
 <ul>
@@ -74,6 +119,7 @@ def count_even_numbers(max_num):
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for counting odd numbers and creating a list of squares. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

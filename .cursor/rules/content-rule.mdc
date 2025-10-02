@@ -1,0 +1,9 @@
+---
+description: Style of the content in each page and flow
+alwaysApply: true
+---
+- Content should follow TDD flows with Red, Green, and then Refactor.
+- All content pages should be setup with the same basic structure, including styles of titles, use of icons and flow.  
+- Green phase should be hidden by default with a button to show 
+- All code should be in a code block with a copy button
+

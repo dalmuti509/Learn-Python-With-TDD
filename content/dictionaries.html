@@ -17,17 +17,20 @@
 
 <h3>Step 2: Implement StudentManager Class (Green Phase)</h3>
 <p>Write the minimal code to make the test pass:</p>
-<div class="code-block-container">
-    <div class="code-block-header">
-        <span>student_manager.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="code-block-content">class StudentManager:
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
+    <div class="code-block-container">
+        <div class="code-block-header">
+            <span>student_manager.py</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-block-content">class StudentManager:
     def __init__(self):
         self.students = {}</div>
+    </div>
+    <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
+    <p><em>Expected result: The test now passes! 🎉</em></p>
 </div>
-<p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
-<p><em>Expected result: The test now passes! 🎉</em></p>
 
 <h3>Step 3: Test Adding Students (Red Phase)</h3>
 <p>Now add a test for adding a student to the dictionary:</p>
@@ -50,6 +53,8 @@ def test_add_student():
 
 <h3>Step 4: Implement Add Student Method (Green Phase)</h3>
 <p>Add the minimal implementation for adding students:</p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>student_manager.py</span>
@@ -64,6 +69,7 @@ def test_add_student():
 </div>
 <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
 <p><em>Expected result: Both tests now pass! 🎉</em></p>
+</div>
 
 <h3>Step 5: Test Getting Student Grade (Red Phase)</h3>
 <p>Add a test for retrieving a student's grade:</p>
@@ -92,6 +98,8 @@ def test_get_student_grade():
 
 <h3>Step 6: Implement Get Grade Method (Green Phase)</h3>
 <p>Add the implementation for getting a student's grade:</p>
+<button class="btn btn-outline-primary mb-3" onclick="toggleGreenPhase(this)">Show Green Phase Solution</button>
+<div class="green-phase-solution" style="display: none;">
 <div class="code-block-container">
     <div class="code-block-header">
         <span>student_manager.py</span>
@@ -109,6 +117,7 @@ def test_get_student_grade():
 </div>
 <p><strong>Run the test again:</strong> <code>pytest student_manager_test.py -v</code></p>
 <p><em>Expected result: All tests now pass! 🎉</em></p>
+</div>
 
 <h3>What We Learned</h3>
 <ul>
@@ -122,6 +131,7 @@ def test_get_student_grade():
     <h5>💡 Exercise</h5>
     <p>Try adding tests and implementations for removing students and calculating average grades. Remember to follow the Red-Green-Refactor cycle!</p>
 </div>
+
 
 
 

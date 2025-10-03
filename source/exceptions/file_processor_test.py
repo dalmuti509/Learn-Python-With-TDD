@@ -1,4 +1,5 @@
 import pytest
+from file_processor import read_file, InvalidFileTypeError
 
 def test_read_existing_file():
     # Create a test file first

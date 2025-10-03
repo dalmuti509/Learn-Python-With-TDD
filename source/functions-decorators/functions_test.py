@@ -1,4 +1,5 @@
 import time
+from functions import timer, retry
 
 def test_timer_decorator():
     @timer

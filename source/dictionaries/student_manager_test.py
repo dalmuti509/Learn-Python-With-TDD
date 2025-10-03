@@ -1,3 +1,5 @@
+from student_manager import StudentManager
+
 def test_create_student():
     manager = StudentManager()
     manager.add_student("Alice", 20, "Computer Science")

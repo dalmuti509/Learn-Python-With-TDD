@@ -1,3 +1,5 @@
+from account import Account
+
 def test_account_creation():
     account = Account("John", 1000)
     assert account.owner == "John"

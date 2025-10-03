@@ -12,8 +12,103 @@
 <h3>Prerequisites</h3>
 <p>This course assumes you have basic programming knowledge, but no prior Python experience is required.</p>
 
+<h3>Setup Instructions</h3>
+<p>Before you begin, you'll need to set up your development environment. Follow these steps to get everything ready:</p>
+
+<h4>1. Install Python</h4>
+<p><strong>Download Python:</strong> Visit <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a> and download the latest Python 3.x version</p>
+<p><strong>Important:</strong> Make sure to check "Add Python to PATH" during installation on Windows</p>
+<p><strong>Verify Installation:</strong> Open your terminal/command prompt and run:</p>
+<div class="terminal-block">
+    <div class="terminal-header">
+        <span>Terminal</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="terminal-content">python --version
+# Should show: Python 3.x.x
+
+python -m pip --version
+# Should show: pip version information</div>
+</div>
+
+<h4>2. Set Up VS Code Environment</h4>
+<p><strong>Install VS Code:</strong> Download from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a></p>
+<p><strong>Required Extensions:</strong> Install these essential extensions:</p>
+<ul>
+    <li><strong>Python</strong> (by Microsoft) - Core Python support</li>
+    <li><strong>Python Test Explorer</strong> - For running tests easily</li>
+    <li><strong>Python Docstring Generator</strong> - For documentation</li>
+    <li><strong>GitLens</strong> - For version control (optional but helpful)</li>
+</ul>
+
+<h4>3. Create Your Project Structure</h4>
+<p><strong>Create a new folder:</strong> Create a folder called <code>learn-python-tdd</code> on your computer</p>
+<p><strong>Open in VS Code:</strong> Open this folder in VS Code</p>
+<p><strong>Start with an empty folder:</strong> You'll create the necessary files and folders as you work through each chapter</p>
+
+<h4>4. Install Required Packages</h4>
+<p><strong>Create requirements.txt:</strong> In your project root, create a file called <code>requirements.txt</code>:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>requirements.txt</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">pytest>=7.0.0
+pytest-cov>=4.0.0</div>
+</div>
+<p><strong>Install packages:</strong> Run this command in your terminal (from your project folder):</p>
+<div class="terminal-block">
+    <div class="terminal-header">
+        <span>Terminal</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="terminal-content">pip install -r requirements.txt</div>
+</div>
+
+<h4>5. Configure VS Code Settings</h4>
+<p><strong>Create .vscode/settings.json:</strong> Create a <code>.vscode</code> folder in your project and add a <code>settings.json</code> file:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>.vscode/settings.json</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">{
+    "python.defaultInterpreterPath": "python",
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
+}</div>
+</div>
+
+<h4>6. Test Your Setup</h4>
+<p><strong>Create a test file:</strong> In your project root, create a file called <code>test.py</code>:</p>
+<div class="code-block-container">
+    <div class="code-block-header">
+        <span>test.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="code-block-content">def test_setup():
+    assert True</div>
+</div>
+<p><strong>Run the test:</strong> In VS Code terminal, run:</p>
+<div class="terminal-block">
+    <div class="terminal-header">
+        <span>Terminal</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <div class="terminal-content">pytest test.py -v</div>
+</div>
+<p><strong>Expected result:</strong> The test should pass, confirming that your Python and pytest setup is working correctly!</p>
+
 <h3>Getting Started</h3>
-<p>Ready to begin? Click on "Hello, world" in the sidebar to start your first Python program with TDD!</p>
+<p>Once you've completed the setup above, you're ready to begin! Click on "Hello, world" in the sidebar to start your first Python program with TDD!</p>
 
 <div class="alert alert-info mt-4">
     <h5>💡 Pro Tip</h5>

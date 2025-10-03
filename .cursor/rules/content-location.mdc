@@ -9,4 +9,5 @@ alwaysApply: true
 - For every HTML file in the `content` directory, there must be a matching Python (.py) file in the `source` directory.
 - The matching Python file must be a superset of all code demonstrated in the corresponding content HTML file.
 - templates + content generates a matching html file in the root at compile/runtime
+- Files and File paths should the - in place of spaces (exmaple: for "hello world" it would be hello-world/hello-world.py)
 

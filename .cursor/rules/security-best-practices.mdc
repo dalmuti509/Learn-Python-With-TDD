@@ -1,0 +1,12 @@
+---
+description: Security and Best Practices
+alwaysApply: true
+---
+- All user inputs must be properly sanitized
+- External links must use rel="noopener noreferrer"
+- All code examples must follow security best practices
+- No sensitive information should be hardcoded in examples
+- All file operations must be safe and validated
+- All dependencies must be kept up to date
+- All agent actions must only run in the workspace directory with approval 
+- Any action outside he workspace directory must be approved

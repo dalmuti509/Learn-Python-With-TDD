@@ -1,0 +1,7 @@
+---
+description: The default set of rules for every workspace
+alwaysApply: true
+---
+- Whenever I ask for something that doesn't match the existing ruleset, suggest a rule change. 
+- Whenever a rule is added or changed, check that everything matches the ruleset and fix anything that doesn't match
+- Whenever a request is made that makes sense as a rule or element in a rule, suggest a rule change or new project rule

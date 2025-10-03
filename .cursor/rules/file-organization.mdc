@@ -1,0 +1,10 @@
+---
+description: File and Directory Organization
+alwaysApply: true
+---
+- All source code must be organized by chapter in the source/ directory
+- Each chapter directory must contain both .py and _test.py files
+- Archive directory should only contain deprecated or moved files
+- All static assets (images, icons) must be in appropriate directories
+- No duplicate files should exist between root and content directories
+- All generated HTML files should be in the root directory

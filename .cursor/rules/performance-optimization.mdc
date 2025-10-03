@@ -1,0 +1,9 @@
+---
+description: Performance and Optimization Standards
+alwaysApply: true
+---
+- All images must be optimized for web delivery
+- External resources must use CDN links when possible
+- All code examples must be efficient and follow best practices
+- Page load times must be optimized for educational content
+- All static assets must be cached appropriately

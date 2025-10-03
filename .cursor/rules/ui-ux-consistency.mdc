@@ -1,0 +1,12 @@
+---
+description: User Interface and Experience
+alwaysApply: true
+---
+- All interactive elements must have hover states and transitions
+- Copy buttons must provide visual feedback when clicked
+- Green phase solutions must be consistently styled across all pages
+- Red phase solutions must be consistently styled across all pages
+- Refactor phase solutions must be consistently styled across all pages
+- All code blocks must have proper syntax highlighting
+- Terminal commands must be visually distinct from code blocks
+- All pages must be responsive and mobile-friendly

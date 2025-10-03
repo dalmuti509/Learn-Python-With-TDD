@@ -1,0 +1,10 @@
+---
+description: Development and Testing Workflow
+alwaysApply: true
+---
+- Before committing changes, all tests must pass
+- All Python source files must have corresponding test files
+- Test files should be named with _test.py suffix
+- All code must follow PEP 8 style guidelines
+- When adding new chapters, update the course structure in app.py
+- All new content must be reviewed for TDD flow consistency

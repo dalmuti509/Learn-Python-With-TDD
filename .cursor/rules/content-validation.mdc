@@ -1,0 +1,10 @@
+---
+description: Content Accuracy and Validation
+alwaysApply: true
+---
+- All code examples must be tested and verified to work
+- All terminal commands must be tested in the actual environment
+- All file paths must be accurate and follow the naming convention
+- All external links must be verified and working
+- All Python code must be syntactically correct and runnable
+- All test examples must follow proper pytest conventions

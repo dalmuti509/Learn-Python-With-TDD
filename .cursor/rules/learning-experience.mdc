@@ -1,0 +1,10 @@
+---
+description: Educational Content Standards
+alwaysApply: true
+---
+- Each chapter must build upon previous concepts progressively
+- New concepts must be explained before implementation
+- All explanations must be beginner-friendly with clear examples
+- Code comments must be educational and explain the "why"
+- All TDD steps must be clearly marked (Red, Green, Refactor)
+- Setup instructions must be complete and tested

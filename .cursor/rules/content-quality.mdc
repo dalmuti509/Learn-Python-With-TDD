@@ -1,0 +1,10 @@
+---
+description: Content Quality and Consistency
+alwaysApply: true
+---
+- All code examples must be runnable and tested before inclusion
+- Each chapter must include both test files and implementation files
+- All code blocks must have syntax highlighting appropriate to the language
+- Terminal commands must use terminal-block styling, not code-block styling
+- All external links must open in new tabs (target="_blank")
+- Images and SVGs should be optimized for web delivery
